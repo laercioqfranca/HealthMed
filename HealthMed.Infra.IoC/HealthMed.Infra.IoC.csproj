@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HealthMed.Application\HealthMed.Application.csproj" />
+    <ProjectReference Include="..\HealthMed.Core\HealthMed.Core.csproj" />
+    <ProjectReference Include="..\HealthMed.Domain\HealthMed.Domain.csproj" />
+    <ProjectReference Include="..\HealthMed.Infra.Bus\HealthMed.Infra.Bus.csproj" />
+    <ProjectReference Include="..\HealthMed.Infra.Data\HealthMed.Infra.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="TextoPadrao.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TextoPadrao.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="TextoPadrao.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextoPadrao.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
