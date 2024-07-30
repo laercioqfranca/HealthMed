@@ -1,8 +1,8 @@
 ﻿using HealthMed.Core.Models;
 
-namespace HealthMed.Domain.Models.Autenticacao
+namespace HealthMed.Domain.Models
 {
-    public class ClaimUsuario : Entity
+    public class Especialidade : Entity
     {
         public string Descricao { get; private set; }
         public DateTime DataInclusao { get; private set; }

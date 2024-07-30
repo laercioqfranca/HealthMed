@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using HealthMed.Domain.Models.Autenticacao;
+using HealthMed.Domain.Models;
 
-namespace HealthMed.Infra.Data.Mappings.Autenticacao
+namespace HealthMed.Infra.Data.Mappings
 {
-    public class PerfilUsuarioMap : IEntityTypeConfiguration<PerfilUsuario>
+    public class HorarioMap : IEntityTypeConfiguration<Horario>
     {
-        public void Configure(EntityTypeBuilder<PerfilUsuario> builder)
+        public void Configure(EntityTypeBuilder<Horario> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.DataInclusao);

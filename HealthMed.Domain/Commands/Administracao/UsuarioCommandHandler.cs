@@ -52,7 +52,7 @@ namespace HealthMed.Domain.Commands.Administracao
                     await _bus.RaiseEvent(new DomainNotification(request.MessageType, "Usuário já existente!"));
                 else
                 {
-                    usuario.setUsuario(idUsuario, request.Nome,request.Idade, request.Senha, request.Email, request.IdPerfil);
+                    usuario.setUsuario(idUsuario, request.Nome, request.Senha, request.Email, request.IdPerfil);
                     _repository.Add(usuario);
                 }
             }
@@ -109,7 +109,7 @@ namespace HealthMed.Domain.Commands.Administracao
                     await _bus.RaiseEvent(new DomainNotification(request.MessageType, "Non-existent user!"));
                 else
                 {
-                    usuario.setUpdateUsuario(request.Nome, request.Idade, request.Email, request.IdPerfil);
+                    usuario.setUpdateUsuario(request.Nome, request.Email, request.IdPerfil);
                     _repository.Update(usuario);
                 }
             }
