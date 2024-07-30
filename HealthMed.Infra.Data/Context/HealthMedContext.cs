@@ -22,8 +22,9 @@ namespace HealthMed.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new PerfilUsuarioMap());
             modelBuilder.ApplyConfiguration(new ClaimUsuarioMap());
             modelBuilder.ApplyConfiguration(new ClaimPerfilMap());
-            modelBuilder.ApplyConfiguration(new EventoMap());
-            modelBuilder.ApplyConfiguration(new SubscriptionMap());
+            modelBuilder.ApplyConfiguration(new AgendaMedicaMap());
+            modelBuilder.ApplyConfiguration(new EspecialidadeMap());
+            modelBuilder.ApplyConfiguration(new HorarioMap());
 
 
             #region Mapeamento das Tabelas de tipos e domínios

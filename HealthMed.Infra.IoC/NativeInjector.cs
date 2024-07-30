@@ -17,12 +17,6 @@ using HealthMed.Application.AppServices.Auth;
 using HealthMed.Application.Interfaces.Auth;
 using HealthMed.Domain.Commands.Auth;
 using HealthMed.Application.AppServices.Autenticacao;
-using HealthMed.Domain.Commands.Inscricao;
-using HealthMed.Application.Interfaces;
-using HealthMed.Application.AppServices;
-using HealthMed.Domain.Interfaces.Infra.Data.Repositories;
-using HealthMed.Infra.Data.Repositories;
-using HealthMed.Domain.Commands.Evento;
 
 namespace HealthMed.Infra.IoC
 {
@@ -37,8 +31,6 @@ namespace HealthMed.Infra.IoC
             services.AddScoped<IAutenticacaoAppService, AutenticacaoAppService>();
             services.AddScoped<IUsuarioAppService, UsuarioAppService>();
             services.AddScoped<IPerfilUsuarioAppService, PerfilUsuarioAppService>();
-            services.AddScoped<IEventoAppService, EventoAppService>();
-            services.AddScoped<ISubscriptionAppService, SubscriptionAppService>();
 
             // Domain Bus (Mediator)
             services.AddScoped<IMediatorHandler, InMemoryBus>();
@@ -53,13 +45,6 @@ namespace HealthMed.Infra.IoC
             services.AddScoped<IRequestHandler<UsuarioUpdateCommand, Unit>, UsuarioCommandHandler>();
             services.AddScoped<IRequestHandler<UsuarioDeleteCommand, Unit>, UsuarioCommandHandler>();
 
-            services.AddScoped<IRequestHandler<SubscriptionCreateCommand, Unit>, SubscriptionCommandHandler>();
-            services.AddScoped<IRequestHandler<SubscriptionDeleteCommand, Unit>, SubscriptionCommandHandler>();
-
-            services.AddScoped<IRequestHandler<EventoCreateCommand, Unit>, EventoCommandHandler>();
-            services.AddScoped<IRequestHandler<EventoUpdateCommand, Unit>, EventoCommandHandler>();
-            services.AddScoped<IRequestHandler<EventoDeleteCommand, Unit>, EventoCommandHandler>();
-
             // Infra - Data EventSourcing
             services.AddScoped<IEventStore, EventStore>();
 
@@ -68,8 +53,6 @@ namespace HealthMed.Infra.IoC
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IPerfilUsuarioRepository, PerfilUsuarioRepository>();
-            services.AddScoped<IEventoRepository, EventoRepository>();
-            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 
             // Infra - Service
         }

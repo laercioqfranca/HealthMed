@@ -12,6 +12,7 @@ namespace HealthMed.Infra.Data.Mappings.Autenticacao
             builder.Property(x => x.DataInclusao);
 
             builder.Property(x => x.Descricao).IsRequired().HasMaxLength(200);
+            builder.Property(x => x.IdTipoPerfil);
             builder.Property(x => x.Excluido).HasDefaultValue(false);
         }
     }

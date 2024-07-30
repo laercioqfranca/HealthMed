@@ -20,8 +20,8 @@ namespace HealthMed.Infra.Data.Repositories.Auth
         {
             IQueryable<PerfilUsuario> query = DbSet.Where(p =>
                                             (!p.Excluido) &&
-                                                ((tipoPerfil == EnumTipoPerfil.Administrador ) ||
-                                                    (tipoPerfil == EnumTipoPerfil.Cliente))
+                                                ((tipoPerfil == EnumTipoPerfil.Medico ) ||
+                                                    (tipoPerfil == EnumTipoPerfil.Paciente))
                                                 ).OrderBy(x => x.Descricao);
             return await query.AsNoTracking().ToListAsync();
         }

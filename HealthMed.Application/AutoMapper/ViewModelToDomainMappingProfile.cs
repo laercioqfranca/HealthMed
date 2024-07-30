@@ -3,8 +3,6 @@ using HealthMed.Application.DTO;
 using HealthMed.Application.ViewModels.Auth;
 using HealthMed.Domain.Commands.Administracao;
 using HealthMed.Domain.Commands.Auth;
-using HealthMed.Domain.Commands.Evento;
-using HealthMed.Domain.Commands.Inscricao;
 
 namespace HealthMed.Application.AutoMapper
 {
@@ -17,12 +15,6 @@ namespace HealthMed.Application.AutoMapper
             CreateMap<UsuarioDTO, UsuarioCreateCommand>();
 
             CreateMap<UsuarioViewModel, UsuarioUpdateCommand>();
-
-            CreateMap<SubscriptionDTO, SubscriptionCreateCommand>();
-
-            CreateMap<EventoDTO, EventoCreateCommand>();
-
-            CreateMap<EventoDTO, EventoUpdateCommand>();
         }
     }
 }
