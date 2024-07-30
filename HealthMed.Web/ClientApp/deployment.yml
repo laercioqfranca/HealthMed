@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-musicevent-deployment # Name of the deployment
+spec:
+  replicas: 3 # Number of desired replicas (pods)
+  selector:
+    matchLabels:
+      app: frontend-musicevent # Label selector to match pods controlled by this deployment
+  template:
+    metadata:
+      labels:
+        app: frontend-musicevent # Labels applied to pods created by this deployment
+    spec:
+      containers:
+        - name: frontend-musicevent # Name of the container
+          image: laercioqf93/frontend-musicevent:latest # Docker image to use
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80 # Port to expose within the pod
