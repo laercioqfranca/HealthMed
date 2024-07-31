@@ -27,7 +27,7 @@ code {
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #edf7f6;}
 
 .active{
   cursor: pointer;
@@ -72,4 +72,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /* Campos de texto Material*/
 .mat-mdc-text-field-wrapper{
   border: 1px solid rgb(166, 166, 166) !important;
+}
+
+.mdc-text-field--disabled{
+  border: 1px solid rgb(166, 166, 166) !important;
+  background-color: rgb(222, 222, 222) !important;
+}
+
+.disabled-field{
+  cursor: not-allowed !important;
 }

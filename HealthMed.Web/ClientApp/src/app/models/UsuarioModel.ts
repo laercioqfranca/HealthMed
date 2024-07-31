@@ -2,7 +2,7 @@ export class UsuarioModel {
     id: string;
     nome: string;
     email: string;
-    enumPerfil: string;
+    enumPerfil: number;
 
     nbf!: number;
     exp!: number;

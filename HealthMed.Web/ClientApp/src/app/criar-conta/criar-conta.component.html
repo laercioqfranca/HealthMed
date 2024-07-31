@@ -1,43 +1,64 @@
-<div class="row h-100 justify-content-center">
-  <div style="width: 350px">
-    
+<div class="row justify-content-center p-4 mb-4">
+  <div class="col-4">
     <form [formGroup]="criarContaForm" (ngSubmit)="onSubmit()">
 
-      <div class="row mb-3">
+      <div class="row">
         <div class="col text-center">
-          <img src="assets/img/logo.jpg" alt="" width="300px">
+          <img src="assets/img/logo.jpg" alt="" width="250px">
+        </div>
+      </div>
+
+      <div class="row text-center p-3">
+        <label class="label" id="tipo-perfil">Selecione o tipo de usuário<small class="text-danger" *ngIf="tipoPerfil?.invalid">&nbsp;*</small> </label>
+        <div>
+          <label for="medico" class="label">Médico&nbsp;</label>
+          <input id="medico" type="radio" [value]="enumTipoPerfil.Medico" formControlName="tipoPerfil" (change)="changeTipoPerfil()"/>
+          <label for="paciente" class="label">Paciente&nbsp;</label>
+          <input id="paciente" type="radio" [value]="enumTipoPerfil.Paciente" formControlName="tipoPerfil" (change)="changeTipoPerfil()"/>
         </div>
       </div>
 
       <div class="row">
         <mat-form-field class="col">
             <mat-label>Nome</mat-label>
-            <input matInput formControlName="nome" id="nome" required/>
-            <mat-error *ngIf="criarContaForm.get('nome')?.touched && criarContaForm.get('nome')?.value.length == 0">
+            <input [ngClass]="nome?.disabled? 'disabled-field' : null" matInput formControlName="nome" id="nome"/>
+            <mat-error *ngIf="nome?.invalid">
               Campo Obrigatório
             </mat-error>
         </mat-form-field>
       </div>
+
       <div class="row">
         <mat-form-field class="col">
-            <mat-label>Idade</mat-label>
-            <input matInput formControlName="idade"type="number" min="18" required/>
-            <mat-error *ngIf="criarContaForm.get('idade')?.touched && criarContaForm.get('idade')?.value.length == 0">
+            <mat-label>CPF</mat-label>
+            <input matInput formControlName="cpf" id="cpf" [ngClass]="cpf?.disabled? 'disabled-field' : null" mask="000.000.000-00" placeholder="000.000.000-00"/>
+            <mat-error *ngIf="cpf?.touched && !cpf?.value">
               Campo Obrigatório
             </mat-error>
-            <mat-error *ngIf="criarContaForm.get('idade')?.touched && criarContaForm.get('idade')?.value < 18">
-              Desculpe! Só para maiores de 18 anos!
+            <mat-error *ngIf="cpf?.value && cpf?.invalid">
+              Campo Inválido
             </mat-error>
         </mat-form-field>
       </div>
+
+      <div class="row" *ngIf="this.criarContaForm.get('crm')">
+        <mat-form-field class="col">
+            <mat-label>CRM</mat-label>
+            <input matInput formControlName="crm" id="crm" [ngClass]="this.criarContaForm.get('crm')?.disabled? 'disabled-field' : null" mask="00000/SS" placeholder="00000/UF"/>
+            <mat-error *ngIf="this.criarContaForm.get('crm')?.invalid">
+              Campo Obrigatório
+            </mat-error>
+        </mat-form-field>
+      </div>
+
       <div class="row">
         <mat-form-field class="col">
             <mat-label>E-mail</mat-label>
-            <input type="email" matInput formControlName="email" id="email" required/>
-            <mat-error *ngIf="criarContaForm.get('email')?.invalid && criarContaForm.get('email')?.value.length > 0">
+            <input type="email" matInput formControlName="email" id="email" [ngClass]="email?.disabled? 'disabled-field' : null" placeholder="abc@exemplo.com"/>
+            <mat-error *ngIf="email?.value && email?.invalid && email?.value.length > 0">
               E-mail inválido
             </mat-error>
-            <mat-error *ngIf="criarContaForm.get('email')?.touched && criarContaForm.get('email')?.value.length == 0">
+            <mat-error *ngIf="email?.touched && !email?.value">
               Campo Obrigatório
             </mat-error>
         </mat-form-field>
@@ -46,11 +67,11 @@
       <div class="row">
         <mat-form-field class="col">
             <mat-label>Senha</mat-label>
-            <input matInput type="password" formControlName="senha" minlength="8" maxlength="50" id="senha" required/>
-            <mat-error *ngIf="criarContaForm.get('senha')?.touched && criarContaForm.get('senha')?.value.length == 0">
+            <input matInput type="password" formControlName="senha" minlength="8" maxlength="50" id="senha" [ngClass]="senha?.disabled? 'disabled-field' : null" placeholder="Mínimo de 8 caracteres"/>
+            <mat-error *ngIf="senha?.touched && !senha?.value">
               Campo Obrigatório
             </mat-error>
-            <mat-error *ngIf="criarContaForm.get('senha')?.touched && criarContaForm.get('senha')?.value && criarContaForm.get('senha')?.value.length < 8">
+            <mat-error *ngIf="senha?.touched && senha?.value && senha?.value.length < 8">
               Mínimo de 8 caracteres
             </mat-error>
         </mat-form-field>

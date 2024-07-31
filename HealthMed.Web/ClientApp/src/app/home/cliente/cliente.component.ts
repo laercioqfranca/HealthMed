@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { InscricaoModel } from 'src/app/models/InscricaoModel';
 import { EventoService } from 'src/app/services/evento.service';
 import { InscricaoService } from 'src/app/services/inscricao.service';
-import { AuthService } from 'src/app/services/root/auth.service';
 import { JwtService } from 'src/app/services/root/jwt.service';
 import { NotificationService } from 'src/app/services/root/notification.service';
 

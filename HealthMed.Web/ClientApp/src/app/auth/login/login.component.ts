@@ -6,6 +6,7 @@ import { ILogin } from '../../interfaces/interfaces';
 import { JwtService } from '../../services/root/jwt.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/root/auth.service';
+import { EnumTipoPerfil } from 'src/app/shared/utils/enums';
 
 @Component({
   selector: 'app-login',
@@ -46,11 +47,11 @@ export class LoginComponent implements OnInit {
             const userJwt = <ILogin>res.data;
             const usuario = this.jwtService.decodeToken(userJwt.accessToken);
 
-            if(usuario?.enumPerfil == '1'){
+            if(usuario?.enumPerfil == EnumTipoPerfil.Medico){
               this.router.navigateByUrl('/admin/home');
             }
 
-            if(usuario?.enumPerfil == '2'){
+            if(usuario?.enumPerfil == EnumTipoPerfil.Paciente){
               this.router.navigateByUrl('/cliente/home');
             }
 
@@ -61,7 +62,7 @@ export class LoginComponent implements OnInit {
         },
         error: (e) => {
           this.formLogin.get('senha')?.setValue('');
-          this.notificationService.showError(e.message);
+          this.notificationService.showError('Ocorreu algum erro!', '');
         },
       });
     }
