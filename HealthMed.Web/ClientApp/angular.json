@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "MusicEvent": {
+    "HealthMed": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -77,10 +77,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "MusicEvent:build:production"
+              "browserTarget": "HealthMed:build:production"
             },
             "development": {
-              "browserTarget": "MusicEvent:build:development",
+              "browserTarget": "HealthMed:build:development",
               "proxyConfig": "proxy.conf.js"
             }
           },
@@ -89,7 +89,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "MusicEvent:build"
+            "browserTarget": "HealthMed:build"
           }
         },
         "test": {
@@ -138,7 +138,7 @@
       }
     }
   },
-  "defaultProject": "MusicEvent",
+  "defaultProject": "HealthMed",
   "cli": {
     "analytics": "4e6449f7-f715-4e5a-953a-1be66b3aa83c"
   }

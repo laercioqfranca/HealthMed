@@ -6,7 +6,7 @@ import { AuthService } from './services/root/auth.service';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'MusicEvents';
+  title = 'Health & Med';
 
   isLoggedIn: boolean;
 
