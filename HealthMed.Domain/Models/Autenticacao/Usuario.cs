@@ -1,4 +1,5 @@
 ﻿using HealthMed.Core.Models;
+using HealthMed.Domain.Models.TabelaDominio;
 using HealthMed.Domain.Utils;
 using System;
 using System.Collections.Generic;

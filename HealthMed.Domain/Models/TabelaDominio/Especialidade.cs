@@ -1,8 +1,8 @@
 ﻿using HealthMed.Core.Models;
 
-namespace HealthMed.Domain.Models
+namespace HealthMed.Domain.Models.TabelaDominio
 {
-    public class Horario : Entity
+    public class Especialidade : Entity
     {
         public string Descricao { get; private set; }
         public DateTime DataInclusao { get; private set; }

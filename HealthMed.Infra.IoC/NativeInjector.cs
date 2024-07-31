@@ -17,6 +17,15 @@ using HealthMed.Application.AppServices.Auth;
 using HealthMed.Application.Interfaces.Auth;
 using HealthMed.Domain.Commands.Auth;
 using HealthMed.Application.AppServices.Autenticacao;
+using HealthMed.Infra.Data.Repositories.TabelaDominio;
+using HealthMed.Domain.Interfaces.Infra.Data.Repositories.TabelaDominio;
+using HealthMed.Application.Interfaces.TabeleDominio;
+using HealthMed.Application.AppServices.TabelaDominio;
+using HealthMed.Domain.Interfaces.Infra.Data.Repositories;
+using HealthMed.Infra.Data.Repositories;
+using HealthMed.Domain.Commands;
+using HealthMed.Application.Interfaces;
+using HealthMed.Application.AppServices;
 
 namespace HealthMed.Infra.IoC
 {
@@ -31,6 +40,9 @@ namespace HealthMed.Infra.IoC
             services.AddScoped<IAutenticacaoAppService, AutenticacaoAppService>();
             services.AddScoped<IUsuarioAppService, UsuarioAppService>();
             services.AddScoped<IPerfilUsuarioAppService, PerfilUsuarioAppService>();
+            services.AddScoped<IEspecialidadeAppService, EspecialidadeAppService>();
+            services.AddScoped<IHorarioAppService, HorarioAppService>();
+            services.AddScoped<IAgendaMedicaAppService, AgendaMedicaAppService>();
 
             // Domain Bus (Mediator)
             services.AddScoped<IMediatorHandler, InMemoryBus>();
@@ -40,10 +52,10 @@ namespace HealthMed.Infra.IoC
 
             // Domain - Commands
             services.AddScoped<IRequestHandler<AutenticarCommand, Unit>, AutenticacaoCommandHandler>();
-
             services.AddScoped<IRequestHandler<UsuarioCreateCommand, Unit>, UsuarioCommandHandler>();
             services.AddScoped<IRequestHandler<UsuarioUpdateCommand, Unit>, UsuarioCommandHandler>();
             services.AddScoped<IRequestHandler<UsuarioDeleteCommand, Unit>, UsuarioCommandHandler>();
+            services.AddScoped<IRequestHandler<AgendaMedicaCreateCommand, Unit>, AgendaMedicaCommandHandler>();
 
             // Infra - Data EventSourcing
             services.AddScoped<IEventStore, EventStore>();
@@ -53,7 +65,9 @@ namespace HealthMed.Infra.IoC
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IPerfilUsuarioRepository, PerfilUsuarioRepository>();
-
+            services.AddScoped<IEspecialidadeRepository, EspecialidadeRepository>();
+            services.AddScoped<IHorarioRepository, HorarioRepository>();
+            services.AddScoped<IAgendaMedicaRepository, AgendaMedicaRepository>();
             // Infra - Service
         }
     }

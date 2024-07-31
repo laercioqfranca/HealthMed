@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using HealthMed.Infra.Data.Mappings;
 using HealthMed.Infra.Data.Mappings.Autenticacao;
 using System;
+using HealthMed.Infra.Data.Mappings.TabelaDominio;
 
 namespace HealthMed.Infra.Data.Context
 {
