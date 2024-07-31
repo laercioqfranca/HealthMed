@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotificationService } from '../../services/root/notification.service';
 import { LoginService } from '../../services/root/login.service';
 import { ILogin } from '../../interfaces/interfaces';
@@ -22,7 +21,8 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
     private jwtService: JwtService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private fb : FormBuilder
     ) { }
 
   ngOnInit() {
@@ -30,10 +30,10 @@ export class LoginComponent implements OnInit {
   }
 
   criaFormLogin(){
-    this.formLogin = new FormGroup({
-      login: new FormControl('', [Validators.required, Validators.email]),
-      senha: new FormControl('', Validators.required),
-    });
+    this.formLogin = this.fb.group({
+      login:[null, [Validators.required, Validators.email]],
+      senha: [null, Validators.required]
+    })
   }
 
   onSubmit(){
