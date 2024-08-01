@@ -9,6 +9,10 @@ namespace HealthMed.Domain.Models
         public DateTime Data { get; private set; }
         public Guid IdHorario { get; private set; }
         public Guid IdMedico { get; private set; }
+        public bool Agendado { get; set; }
+
+        public virtual Horario Horario { get; private set; }
+        public virtual Usuario Medico { get; private set; }
         public AgendaMedica(DateTime data, Guid idHorario, Guid idMedico)
         {
             Data = data;
@@ -16,7 +20,9 @@ namespace HealthMed.Domain.Models
             IdMedico = idMedico;
         }
 
-        public virtual Horario Horario { get; private set; }
-        public virtual Usuario Medico { get; private set; }
+        public void setAgendado(bool agendado)
+        {
+            Agendado = agendado;    
+        }
     }
 }

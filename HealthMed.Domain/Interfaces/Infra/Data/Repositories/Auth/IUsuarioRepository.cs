@@ -13,5 +13,6 @@ namespace HealthMed.Domain.Interfaces.Infra.Data.Repositories.Auth
         Task<Usuario> GetById(Guid id);
         Task<IEnumerable<Usuario>> GetByLogin(string login);
         Task<IEnumerable<Usuario>> GetByFiltro(string nome, string email, string cpf);
+        Task<List<Usuario>> GetListByIdEspecialidade(Guid idEspecialidade);
     }
 }
