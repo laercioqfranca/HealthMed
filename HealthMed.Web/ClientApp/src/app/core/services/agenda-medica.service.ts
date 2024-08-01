@@ -10,8 +10,8 @@ export class AgendaMedicaService {
 
   constructor(private http:HttpClient) { }
 
-  getByFilter(filtro: any): Observable<any> {
-    return this.http.get('v1/AgendaMedica/GetByFilter', {params: filtro}).pipe(
+  getByFilter(filtro:any): Observable<any> {
+    return this.http.get('v1/AgendaMedica/GetByFilter', {params:filtro}).pipe(
       map((response: any) => ({
         data: response.data,
         success: response.success,

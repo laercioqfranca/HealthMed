@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { AgendaMedicaService } from 'src/app/core/services/agenda-medica.service';
 import { HorarioService } from 'src/app/core/services/horario.service';
 import { NotificationService } from 'src/app/core/services/root/notification.service';
+import { AgendaMedicaFiltroModel } from 'src/app/models/agendaMedicaFiltroModel';
 import { AuthService } from 'src/app/services/root/auth.service';
 
 @Component({
@@ -14,28 +15,28 @@ export class MedicoComponent implements OnInit {
 
   agendaForm!: FormGroup;
   idMedico!:any;
+  horarioList!:any;
 
   agendaList: any[] = [{
-    data: '2024-08-01',
+    data: '01/06/2024',
     hora: ['09:00', '10:00', '11:00', '14:00', '15:00']
   },
   {
-    data: '2024-08-02',
+    data: '05/06/2024',
     hora: ['08:00', '09:00', '10:00', '13:00', '16:00', '18:00']
   },
   {
-    data: '2024-08-02',
+    data: '09/08/2024',
     hora: ['08:00', '09:00', '10:00', '13:00']
   },
   {
-    data: '2024-08-02',
+    data: '10/08/2024',
     hora: ['08:00', '09:00', '10:00', '13:00', '16:00']
   }
 ];
 
 
   mostrarCriarEvento: boolean = true;
-  horarioList: any[] = []; 
 
   get content(): FormArray { return this.agendaForm.get('content') as FormArray; }
   get data() { return this.agendaForm.get('data') }
@@ -48,12 +49,14 @@ export class MedicoComponent implements OnInit {
     private authService: AuthService
 
     ) { 
-      console.log(this.authService.currentUserValue?.id);
+      const usuario = this.authService.currentUserValue;
+      this.idMedico = usuario?.id;
     }  
   
   ngOnInit() {
     this.iniciarForm();
     this.listarHorarios();
+    // this.listarAgendaPorFiltro();
   }
     
   iniciarForm(){
@@ -84,18 +87,65 @@ export class MedicoComponent implements OnInit {
       let model = this.agendaForm.getRawValue()
       this.cadastrarAgenda(model);
 
-      // if(!this.evento){
-      //   this.criarEvento(this.criarEventoForm?.value);
-      //   this.criarEventoForm.reset();
-      // }
-      
-      // if(this.evento){ // se tiver algo na variável evento, então edita
-      //   this.autualizarEvento(this.criarEventoForm?.value);
-      //   this.criarEventoForm.reset();
-      //   this.evento = null;
-      // }
-
     }
+  }
+
+
+  listarHorarios(){
+    this.horarioService.getAll()
+      .subscribe({
+        next: (res) => {
+          const horarioList = res.data;
+          this.horarioList = this.ordenarHorarioList(horarioList);
+        },
+        error: (e) => {
+          this.notificationService.showError("Ocorreu algum erro ao carregar os Horários!", "Ops...");
+        },
+      });
+  }
+
+  ordenarHorarioList(lista:any){
+    return lista.sort(function(a:any, b:any){
+      if (a.propriedade < b.descricao) {
+        return -1;
+      }
+      if (a.descricao > b.descricao) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+
+  listarAgendaPorFiltro(){
+
+    let model = {idMedico: this.idMedico}
+
+    this.agendaService.getByFilter(model)
+      .subscribe({
+        next: (res) => {
+          const horarioList = res.data;
+          this.horarioList = this.ordenarHorarioList(horarioList);
+          console.log(this.horarioList)
+        },
+        error: (e) => {
+          this.notificationService.showError("Ocorreu algum erro ao carregar os Horários!", "Ops...");
+        },
+      });
+  }
+
+  cadastrarAgenda(model:any){
+    this.agendaService.create(model).subscribe({
+      next:(res) => {
+        if (res?.success) {
+          this.notificationService.showSuccess('Agenda cadastrada com sucesso!', '');
+          this.agendaForm.reset();
+          // this.listarEventos();
+        }
+      },
+      error: (e) => {
+        this.notificationService.showError("Ocorreu algum erro ao cadastrar a agenda!", "Ops...");
+      },
+    });
   }
 
   // obterEventoPorId(id:any){
@@ -128,44 +178,6 @@ export class MedicoComponent implements OnInit {
   //   //   });
   // }
 
-  listarHorarios(){
-    this.horarioService.getAll()
-      .subscribe({
-        next: (res) => {
-          const horarioList = res.data;
-          this.horarioList = this.ordenarHorarioList(horarioList);
-        },
-        error: (e) => {
-          this.notificationService.showError("Ocorreu algum erro ao carregar os Horários!", "Ops...");
-        },
-      });
-  }
-
-  ordenarHorarioList(lista:any){
-    return lista.sort(function(a:any, b:any){
-      if (a.propriedade < b.descricao) {
-        return -1;
-      }
-      if (a.descricao > b.descricao) {
-        return 1;
-      }
-      return 0;
-    });
-  }
-
-  // listarAgenda(){
-  //   this.agendaService.getByFilter()
-  //     .subscribe({
-  //       next: (res) => {
-  //         const horarioList = res.data;
-  //         this.horarioList = this.ordenarHorarioList(horarioList);
-  //       },
-  //       error: (e) => {
-  //         this.notificationService.showError("Ocorreu algum erro ao carregar os Horários!", "Ops...");
-  //       },
-  //     });
-  // }
-
   // editar(id:any){
   //   this.obterEventoPorId(id);
   // } 
@@ -196,20 +208,7 @@ export class MedicoComponent implements OnInit {
   //   // }
   // }
 
-  cadastrarAgenda(model:any){
-    this.agendaService.create(model).subscribe({
-      next:(res) => {
-        if (res?.success) {
-          this.notificationService.showSuccess('Agenda cadastrada com sucesso!', '');
-          this.agendaForm.reset();
-          // this.listarEventos();
-        }
-      },
-      error: (e) => {
-        this.notificationService.showError("Ocorreu algum erro ao cadastrar a agenda!", "Ops...");
-      },
-    });
-  }
+  
 
   // autualizarEvento(evento:any){
   //   // const viewModel = {
@@ -232,7 +231,6 @@ export class MedicoComponent implements OnInit {
   // }
 
   limpar(){
-    // this.evento = null;
     this.agendaForm.reset();
   }
 

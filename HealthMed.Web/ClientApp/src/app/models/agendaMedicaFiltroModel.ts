@@ -5,7 +5,7 @@ export class AgendaMedicaFiltroModel {
   idMedico?: string;
   idPaciente?: string;
 
-  constructor(data: AgendaMedicaFiltroModel) {
+  constructor(data: any) {
     if (!data) return;
     Object.assign(this, data);
   }
