@@ -1,15 +1,13 @@
 ﻿using HealthMed.Core.Interfaces;
 using HealthMed.Core.Notifications;
 using HealthMed.Domain.Enum;
-using HealthMed.Domain.Interfaces.Infra.Data.Repositories.Auth;
 using HealthMed.Domain.Interfaces.Infra.Data;
 using HealthMed.Domain.Models.Administracao;
-using HealthMed.Domain.Models.Autenticacao;
 using MediatR;
-using HealthMed.Domain.Interfaces.Infra.Data.Repositories;
-using HealthMed.Domain.Models;
+using HealthMed.Domain.Interfaces.Infra.Data.Repositories.Medico;
+using HealthMed.Domain.Models.Medico;
 
-namespace HealthMed.Domain.Commands
+namespace HealthMed.Domain.Commands.Medico
 {
     public class AgendaMedicaCommandHandler : CommandHandler, IRequestHandler<AgendaMedicaCreateCommand>
     {

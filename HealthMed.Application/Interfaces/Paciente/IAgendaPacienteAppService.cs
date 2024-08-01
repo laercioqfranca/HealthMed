@@ -9,11 +9,11 @@ using HealthMed.Application.ViewModels.Auth;
 using HealthMed.Application.ViewModels.TabelaDominio;
 using HealthMed.Domain.Enum;
 
-namespace HealthMed.Application.Interfaces
+namespace HealthMed.Application.Interfaces.Paciente
 {
     public interface IAgendaPacienteAppService
     {
-        //Task<IEnumerable<AgendaMedicaViewModel>> GetByFilter(DateTime? data, Guid? idHorario, Guid? idMedico, Guid? idPaciente);
         Task Create(AgendaPacienteDTO agendaPacienteDTO);
+        Task Delete(AgendaPacienteDTO agendaPacienteDTO);
     }
 }

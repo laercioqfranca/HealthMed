@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using HealthMed.Application.DTO;
 using HealthMed.Application.ViewModels.Auth;
-using HealthMed.Domain.Commands;
 using HealthMed.Domain.Commands.Administracao;
 using HealthMed.Domain.Commands.Auth;
-using static HealthMed.Domain.Commands.AgendaMedicaCreateCommand;
+using HealthMed.Domain.Commands.Medico;
+using HealthMed.Domain.Commands.Paciente;
+using static HealthMed.Domain.Commands.Medico.AgendaMedicaCreateCommand;
 
 namespace HealthMed.Application.AutoMapper
 {
@@ -22,6 +23,7 @@ namespace HealthMed.Application.AutoMapper
             CreateMap<AgendaDTO, AgendaCreateCommand>();
 
             CreateMap<AgendaPacienteDTO, AgendaPacienteCreateCommand>();
+            CreateMap<AgendaPacienteDTO, AgendaPacienteDeleteCommand>();
         }
     }
 }

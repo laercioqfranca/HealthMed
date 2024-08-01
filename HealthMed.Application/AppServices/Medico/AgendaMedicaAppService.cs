@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using AutoMapper;
 using HealthMed.Application.DTO;
-using HealthMed.Application.Interfaces;
 using HealthMed.Application.Interfaces.Auth;
+using HealthMed.Application.Interfaces.Medico;
 using HealthMed.Application.Interfaces.TabeleDominio;
 using HealthMed.Application.ViewModels;
 using HealthMed.Application.ViewModels.TabelaDominio;
 using HealthMed.Core.Interfaces;
-using HealthMed.Domain.Commands;
 using HealthMed.Domain.Commands.Administracao;
+using HealthMed.Domain.Commands.Medico;
 using HealthMed.Domain.Interfaces.Infra.Data;
-using HealthMed.Domain.Interfaces.Infra.Data.Repositories;
 using HealthMed.Domain.Interfaces.Infra.Data.Repositories.Auth;
+using HealthMed.Domain.Interfaces.Infra.Data.Repositories.Medico;
 using HealthMed.Domain.Interfaces.Infra.Data.Repositories.TabelaDominio;
 using Microsoft.AspNetCore.Http;
 
-namespace HealthMed.Application.AppServices
+namespace HealthMed.Application.AppServices.Medico
 {
     public class AgendaMedicaAppService : IAgendaMedicaAppService
     {

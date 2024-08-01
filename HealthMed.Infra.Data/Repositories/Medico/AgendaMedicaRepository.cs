@@ -1,13 +1,10 @@
-﻿using HealthMed.Domain.Interfaces.Infra.Data.Repositories;
-using HealthMed.Domain.Interfaces.Infra.Data.Repositories.Auth;
-using HealthMed.Domain.Models;
-using HealthMed.Domain.Models.Autenticacao;
-using HealthMed.Domain.Models.TabelaDominio;
+﻿using HealthMed.Domain.Interfaces.Infra.Data.Repositories.Medico;
+using HealthMed.Domain.Models.Medico;
 using HealthMed.Infra.Data.Configuration;
 using HealthMed.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace HealthMed.Infra.Data.Repositories
+namespace HealthMed.Infra.Data.Repositories.Medico
 {
     public class AgendaMedicaRepository : Repository<AgendaMedica>, IAgendaMedicaRepository
     {
@@ -37,8 +34,8 @@ namespace HealthMed.Infra.Data.Repositories
                 .Include(x => x.Horario)
                 .Include(x => x.Medico)
             .Where(x =>
-            (x.Id == id) &&
-            (agendado == null || x.Agendado == agendado) 
+            x.Id == id &&
+            (agendado == null || x.Agendado == agendado)
             ).AsNoTracking().SingleOrDefaultAsync();
 
         }

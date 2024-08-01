@@ -1,23 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using HealthMed.Application.Interfaces.Administracao;
-using HealthMed.Application.Interfaces.Auth;
-using HealthMed.Application.ViewModels.Auth;
 using HealthMed.Core.Interfaces;
-using HealthMed.Core.JWT;
 using HealthMed.Core.Notifications;
-using HealthMed.Web.Configurations;
-using Newtonsoft.Json;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Security.Principal;
-using System.Text;
 using HealthMed.Application.DTO;
-using HealthMed.Application.Interfaces;
+using HealthMed.Application.Interfaces.Medico;
+using Microsoft.AspNetCore.Authorization;
 
-namespace HealthMed.Web.Controllers
+namespace HealthMed.Web.Controllers.Medico
 {
     [Route("v1/[controller]")]
     [ApiController]
@@ -31,8 +20,11 @@ namespace HealthMed.Web.Controllers
             _appService = appService;
         }
 
+        #region GET
+
         [HttpGet]
         [Route("GetByFilter")]
+        [Authorize]
         public async Task<IActionResult> GetByFilter(DateTime? data, Guid? idHorario, Guid? idMedico, Guid? idPaciente)
         {
             try
@@ -47,11 +39,13 @@ namespace HealthMed.Web.Controllers
 
         }
 
+        #endregion
 
         #region POST
 
         [Route("Create")]
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Post([FromBody] AgendaMedicaDTO agendaMedicaDTO)
         {
             try

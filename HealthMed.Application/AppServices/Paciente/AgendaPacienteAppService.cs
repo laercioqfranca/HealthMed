@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using AutoMapper;
 using HealthMed.Application.DTO;
-using HealthMed.Application.Interfaces;
 using HealthMed.Application.Interfaces.Auth;
+using HealthMed.Application.Interfaces.Paciente;
 using HealthMed.Application.Interfaces.TabeleDominio;
 using HealthMed.Application.ViewModels;
 using HealthMed.Application.ViewModels.TabelaDominio;
 using HealthMed.Core.Interfaces;
-using HealthMed.Domain.Commands;
 using HealthMed.Domain.Commands.Administracao;
+using HealthMed.Domain.Commands.Paciente;
 using HealthMed.Domain.Interfaces.Infra.Data;
-using HealthMed.Domain.Interfaces.Infra.Data.Repositories;
 using HealthMed.Domain.Interfaces.Infra.Data.Repositories.Auth;
+using HealthMed.Domain.Interfaces.Infra.Data.Repositories.Paciente;
 using HealthMed.Domain.Interfaces.Infra.Data.Repositories.TabelaDominio;
 using Microsoft.AspNetCore.Http;
 
-namespace HealthMed.Application.AppServices
+namespace HealthMed.Application.AppServices.Paciente
 {
     public class AgendaPacienteAppService : IAgendaPacienteAppService
     {
@@ -33,17 +33,16 @@ namespace HealthMed.Application.AppServices
             _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
-        //public async Task<IEnumerable<AgendaMedicaViewModel>> GetByFilter(DateTime? data, Guid? idHorario, Guid? idMedico, Guid? idPaciente)
-        //{
-        //    var query = await _repository.GetByFilter(data, idHorario, idMedico, idPaciente);
-        //    var list = _mapper.Map<List<AgendaMedicaViewModel>>(query);
-        //    return list;
-
-        //}
 
         public async Task Create(AgendaPacienteDTO agendaPacienteDTO)
         {
             var command = _mapper.Map<AgendaPacienteCreateCommand>(agendaPacienteDTO);
+            //command.UsuarioRequerenteId = new Guid(_httpContextAccessor.HttpContext?.User.Identity.Name);
+            await _bus.SendCommand(command);
+        }
+        public async Task Delete(AgendaPacienteDTO agendaPacienteDTO)
+        {
+            var command = _mapper.Map<AgendaPacienteDeleteCommand>(agendaPacienteDTO);
             //command.UsuarioRequerenteId = new Guid(_httpContextAccessor.HttpContext?.User.Identity.Name);
             await _bus.SendCommand(command);
         }

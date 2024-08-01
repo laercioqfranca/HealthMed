@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using HealthMed.Domain.Models;
+using HealthMed.Domain.Models.Paciente;
 
 namespace HealthMed.Infra.Data.Mappings
 {

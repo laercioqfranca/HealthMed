@@ -1,7 +1,6 @@
-﻿using HealthMed.Domain.Models;
-using HealthMed.Domain.Models.Autenticacao;
+﻿using HealthMed.Domain.Models.Medico;
 
-namespace HealthMed.Domain.Interfaces.Infra.Data.Repositories
+namespace HealthMed.Domain.Interfaces.Infra.Data.Repositories.Medico
 {
     public interface IAgendaMedicaRepository : IRepository<AgendaMedica>
     {

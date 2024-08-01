@@ -21,11 +21,16 @@ using HealthMed.Infra.Data.Repositories.TabelaDominio;
 using HealthMed.Domain.Interfaces.Infra.Data.Repositories.TabelaDominio;
 using HealthMed.Application.Interfaces.TabeleDominio;
 using HealthMed.Application.AppServices.TabelaDominio;
-using HealthMed.Domain.Interfaces.Infra.Data.Repositories;
-using HealthMed.Infra.Data.Repositories;
-using HealthMed.Domain.Commands;
-using HealthMed.Application.Interfaces;
-using HealthMed.Application.AppServices;
+using HealthMed.Application.AppServices.Paciente;
+using HealthMed.Application.AppServices.Medico;
+using HealthMed.Application.Interfaces.Medico;
+using HealthMed.Application.Interfaces.Paciente;
+using HealthMed.Domain.Commands.Paciente;
+using HealthMed.Domain.Commands.Medico;
+using HealthMed.Domain.Interfaces.Infra.Data.Repositories.Paciente;
+using HealthMed.Domain.Interfaces.Infra.Data.Repositories.Medico;
+using HealthMed.Infra.Data.Repositories.Medico;
+using HealthMed.Infra.Data.Repositories.Paciente;
 
 namespace HealthMed.Infra.IoC
 {
@@ -58,6 +63,7 @@ namespace HealthMed.Infra.IoC
             services.AddScoped<IRequestHandler<UsuarioDeleteCommand, Unit>, UsuarioCommandHandler>();
             services.AddScoped<IRequestHandler<AgendaMedicaCreateCommand, Unit>, AgendaMedicaCommandHandler>();
             services.AddScoped<IRequestHandler<AgendaPacienteCreateCommand, Unit>, AgendaPacienteCommandHandler>();
+            services.AddScoped<IRequestHandler<AgendaPacienteDeleteCommand, Unit>, AgendaPacienteCommandHandler>();
 
             // Infra - Data EventSourcing
             services.AddScoped<IEventStore, EventStore>();

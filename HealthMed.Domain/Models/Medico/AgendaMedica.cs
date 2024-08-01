@@ -2,7 +2,7 @@
 using HealthMed.Domain.Models.Autenticacao;
 using HealthMed.Domain.Models.TabelaDominio;
 
-namespace HealthMed.Domain.Models
+namespace HealthMed.Domain.Models.Medico
 {
     public class AgendaMedica : Entity
     {
@@ -22,7 +22,7 @@ namespace HealthMed.Domain.Models
 
         public void setAgendado(bool agendado)
         {
-            Agendado = agendado;    
+            Agendado = agendado;
         }
     }
 }

@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
-using HealthMed.Application.DTO;
 using HealthMed.Application.ViewModels;
 using HealthMed.Application.ViewModels.Auth;
 using HealthMed.Application.ViewModels.TabelaDominio;
-using HealthMed.Domain.Commands;
-using HealthMed.Domain.Models;
 using HealthMed.Domain.Models.Autenticacao;
+using HealthMed.Domain.Models.Medico;
 using HealthMed.Domain.Models.TabelaDominio;
-using static HealthMed.Domain.Commands.AgendaMedicaCreateCommand;
+using static HealthMed.Domain.Commands.Medico.AgendaMedicaCreateCommand;
 
 namespace HealthMed.Application.AutoMapper
 {

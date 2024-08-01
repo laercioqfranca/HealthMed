@@ -9,7 +9,7 @@ using HealthMed.Application.ViewModels.Auth;
 using HealthMed.Application.ViewModels.TabelaDominio;
 using HealthMed.Domain.Enum;
 
-namespace HealthMed.Application.Interfaces
+namespace HealthMed.Application.Interfaces.Medico
 {
     public interface IAgendaMedicaAppService
     {
