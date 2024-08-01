@@ -23,12 +23,10 @@ namespace HealthMed.Infra.Data.Repositories
             return await DbSet
                 .Include(x => x.Horario)
                 .Include(x => x.Medico)
-                .Include(x => x.Paciente)
             .Where(x =>
             (data == null || x.Data.Date == data) &&
             (idHorario == null || x.IdHorario == idHorario) &&
-            (idMedico == null || x.IdMedico == idMedico) &&
-            (idPaciente == null || x.IdPaciente == idPaciente)
+            (idMedico == null || x.IdMedico == idMedico)
             ).AsNoTracking().ToListAsync();
 
         }

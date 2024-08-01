@@ -18,6 +18,7 @@ namespace HealthMed.Domain.Models.Autenticacao
         public string Senha { get; private set; }
         public string Salt { get; private set; }
         public string Email { get; private set; }
+        public long Cpf { get; private set; }
         public string? CRM { get; private set; }
         public Guid? IdEspecialidade { get; private set; }
         public Guid? IdPerfil { get; private set; }
@@ -28,13 +29,14 @@ namespace HealthMed.Domain.Models.Autenticacao
         public virtual PerfilUsuario Perfil { get; private set; }
 
 
-        public void setUsuario(Guid id, string nome, string senha, string email, Guid? idPerfil, string? cRM, Guid? idEspecialidade)
+        public void setUsuario(Guid id, string nome, string senha, string email, long cpf, Guid? idPerfil, string? cRM, Guid? idEspecialidade)
         {
             Id = id;
             Nome = nome;
             Email = email;
             IdPerfil = idPerfil;        
             Login = email;
+            Cpf = cpf;
             CRM = cRM;
             IdEspecialidade = idEspecialidade;
             DataInclusao = DateTime.Now;

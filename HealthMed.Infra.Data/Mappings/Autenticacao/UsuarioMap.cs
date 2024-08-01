@@ -16,6 +16,7 @@ namespace HealthMed.Infra.Data.Mappings.Autenticacao
             builder.Property(x => x.Senha).IsRequired().HasMaxLength(50);
             builder.Property(x => x.Salt).IsRequired().HasMaxLength(50);
             builder.Property(x => x.Email).IsRequired(false).HasMaxLength(100);
+            builder.Property(x => x.Cpf).IsRequired();
             builder.Property(x => x.CRM).HasMaxLength(50);
 
             builder.Property(x => x.Excluido).HasDefaultValue(false);

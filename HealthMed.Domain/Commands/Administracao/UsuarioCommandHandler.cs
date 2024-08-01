@@ -52,7 +52,7 @@ namespace HealthMed.Domain.Commands.Administracao
                     await _bus.RaiseEvent(new DomainNotification(request.MessageType, "Usuário já existente!"));
                 else
                 {
-                    usuario.setUsuario(idUsuario, request.Nome, request.Senha, request.Email, request.IdPerfil, request.CRM, request.IdEspecialidade);
+                    usuario.setUsuario(idUsuario, request.Nome, request.Senha, request.Email, request.Cpf, request.IdPerfil, request.CRM, request.IdEspecialidade);
                     _repository.Add(usuario);
                 }
             }
