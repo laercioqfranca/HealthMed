@@ -2,21 +2,21 @@ import { NgModule } from '@angular/core';
 
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AdminComponent } from './admin.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MedicoComponent } from './medico.component';
 
 @NgModule({
   declarations: [
-    AdminComponent
+    MedicoComponent
   ],
 
   imports:[
     SharedModule,
     CommonModule,
     RouterModule.forChild([
-        { path: '', component: AdminComponent },
+        { path: '', component: MedicoComponent },
       ]),
   ]
 
 })
-export class AdminModule { }
+export class MedicoModule { }

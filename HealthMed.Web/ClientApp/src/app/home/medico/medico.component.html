@@ -1,7 +1,7 @@
 
 <div class="row py-2">
   <div class="col titulo">
-    Criar Evento <i class="fa fa-plus" aria-hidden="true"></i>
+    Médico <i class="fa fa-plus" aria-hidden="true"></i>
   </div>
 </div>
 
@@ -20,7 +20,7 @@
         </div>
 
          <div class="col pt-4">
-            <button (click)="limpar()" class="btn btn-warning me-2"><i class="fa fa-sign-in"></i> Limpar</button>
+            <button class="btn btn-warning me-2"><i class="fa fa-sign-in"></i> Limpar</button>
             <button type="submit" [disabled]="criarEventoForm.invalid" class="btn btn-success"><i
                     class="fa fa-sign-in"></i> Criar</button>
         </div>
@@ -38,8 +38,8 @@
     <div class="col"><b>{{item.descricao}}</b></div>
     <div class="col">{{item.data}}</div>
     <div class="col">
-      <abbr title="Editar"><i class="fa-solid fa-pen-to-square me-3 text-primary active" (click)="editar(item.id)"></i></abbr>
-      <abbr title="Excluir"><i class="fa fa-trash text-danger active" (click)="deletar(item.id)"></i></abbr>
+      <abbr title="Editar"><i class="fa-solid fa-pen-to-square me-3 text-primary active"></i></abbr>
+      <abbr title="Excluir"><i class="fa fa-trash text-danger active"></i></abbr>
     </div>
   </div>
 </div>

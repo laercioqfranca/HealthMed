@@ -48,11 +48,11 @@ export class LoginComponent implements OnInit {
             const usuario = this.jwtService.decodeToken(userJwt.accessToken);
 
             if(usuario?.enumPerfil == EnumTipoPerfil.Medico){
-              this.router.navigateByUrl('/admin/home');
+              this.router.navigateByUrl('/medico/home');
             }
 
             if(usuario?.enumPerfil == EnumTipoPerfil.Paciente){
-              this.router.navigateByUrl('/cliente/home');
+              this.router.navigateByUrl('/paciente/home');
             }
 
             this.authService.setSession(userJwt);
