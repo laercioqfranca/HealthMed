@@ -38,7 +38,7 @@ namespace HealthMed.Domain.Commands
             else
             {
                 List<AgendaMedica> agendaMedicas = new List<AgendaMedica>();
-                agendaMedicas = request.Content.Select(x => new AgendaMedica(x.Data, x.IdHorario, request.IdMedico, null)).ToList();
+                agendaMedicas = request.Content.Select(x => new AgendaMedica(x.Data, x.IdHorario, request.IdMedico)).ToList();
                 _repository.AddList(agendaMedicas);
             }
 

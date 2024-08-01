@@ -13,7 +13,6 @@ namespace HealthMed.Infra.Data.Mappings
 
             builder.HasOne(x => x.Horario).WithMany().HasForeignKey(x => x.IdHorario).IsRequired();
             builder.HasOne(x => x.Medico).WithMany().HasForeignKey(x => x.IdMedico).IsRequired();
-            builder.HasOne(x => x.Paciente).WithMany().HasForeignKey(x => x.IdPaciente);
         }
     }
 }
