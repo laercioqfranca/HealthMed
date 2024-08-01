@@ -8,8 +8,8 @@ namespace HealthMed.Application.DTO
 {
     public class AgendaMedicaDTO
     {
-        public List<AgendaDTO> Content { get; set; }
         public Guid IdMedico { get; set; }
+        public List<AgendaDTO> Content { get; set; }
 
     }
     public class AgendaDTO()

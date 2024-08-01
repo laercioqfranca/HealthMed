@@ -9,10 +9,11 @@ namespace HealthMed.Application.DTO
     public class UsuarioDTO
     {
         public string Nome { get; set; }
-        public int Idade { get; set; }
         public string Email { get; set; }
         public string Senha { get; set; }
+        public string? CRM { get; set; }
         public Guid? IdPerfil { get; set; }
+        public Guid? IdEspecialidade { get; set; }
 
     }
 }

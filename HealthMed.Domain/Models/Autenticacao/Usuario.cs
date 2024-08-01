@@ -28,13 +28,15 @@ namespace HealthMed.Domain.Models.Autenticacao
         public virtual PerfilUsuario Perfil { get; private set; }
 
 
-        public void setUsuario(Guid id, string nome, string senha, string email, Guid? idPerfil)
+        public void setUsuario(Guid id, string nome, string senha, string email, Guid? idPerfil, string? cRM, Guid? idEspecialidade)
         {
             Id = id;
             Nome = nome;
             Email = email;
             IdPerfil = idPerfil;        
             Login = email;
+            CRM = cRM;
+            IdEspecialidade = idEspecialidade;
             DataInclusao = DateTime.Now;
             setCriptografia(senha, null);
         }

@@ -19,7 +19,7 @@ using HealthMed.Application.Interfaces;
 
 namespace HealthMed.Web.Controllers.Auth
 {
-    [Route("v1/authentication")]
+    [Route("v1/[controller]")]
     [ApiController]
     public class AgendaMedicaController : ApiController
     {
@@ -29,6 +29,22 @@ namespace HealthMed.Web.Controllers.Auth
             : base(notifications, mediator)
         {
             _appService = appService;
+        }
+
+        [HttpGet]
+        [Route("GetByFilter")]
+        public async Task<IActionResult> GetByFilter(DateTime? data, Guid? idHorario, Guid? idMedico, Guid? idPaciente)
+        {
+            try
+            {
+                var result = await _appService.GetByFilter(data, idHorario, idMedico, idPaciente);
+                return Response(result);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+
         }
 
 

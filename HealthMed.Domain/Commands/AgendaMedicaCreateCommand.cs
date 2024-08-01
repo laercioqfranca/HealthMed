@@ -10,12 +10,12 @@ namespace HealthMed.Domain.Commands
 {
     public class AgendaMedicaCreateCommand : Command
     {
-        public List<AgendaCreateCommand> Content { get; set; }
-        public Guid IdMedico { get; set; }
+        public Guid IdMedico { get; protected set; }
+        public List<AgendaCreateCommand> Content { get; protected set; }
         public class AgendaCreateCommand()
         {
-            public DateTime Data { get; set; }
-            public Guid IdHorario { get; set; }
+            public DateTime Data { get; protected set; }
+            public Guid IdHorario { get; protected set; }
         }
 
         public override bool IsValid()
