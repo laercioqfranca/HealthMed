@@ -1,0 +1,13 @@
+.agenda{
+    background-color: white;
+}
+
+.card-data{
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 10px;
+}
+
+.fa-edit{
+    cursor: pointer;
+}

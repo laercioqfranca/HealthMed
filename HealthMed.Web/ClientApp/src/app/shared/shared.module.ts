@@ -23,6 +23,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { MatButtonModule } from '@angular/material/button';
 
 const mainModulesPack = [
   CommonModule,
@@ -48,8 +49,8 @@ const materialModulesPack = [
   MatDialogModule,
   MatGridListModule,
   MatSelectModule,
-  MatFormFieldModule
-
+  MatFormFieldModule,
+  MatButtonModule
 ];
 
 const MODULOS_COMPARTILHADOS = [

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { JwtService } from 'src/app/services/root/jwt.service';
-import { NotificationService } from 'src/app/services/root/notification.service';
+import { JwtService } from 'src/app/core/services/root/jwt.service';
+import { NotificationService } from 'src/app/core/services/root/notification.service';
 
 @Component({
   selector: 'app-paciente',

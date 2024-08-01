@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { UsuarioService } from '../services/usuario.service';
+import { UsuarioService } from '../core/services/usuario.service';
 import { Router } from '@angular/router';
-import { NotificationService } from '../services/root/notification.service';
 import { EnumTipoPerfil } from '../shared/utils/enums';
 import { EspecialidadeService } from '../core/services/especialidade.service';
-import { PerfilService } from '../services/perfil.service';
+import { PerfilService } from '../core/services/perfil.service';
+import { NotificationService } from '../core/services/root/notification.service';
 
 @Component({
   selector: 'app-criar-conta',

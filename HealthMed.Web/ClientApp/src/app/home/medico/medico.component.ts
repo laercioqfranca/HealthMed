@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AgendaMedicaService } from 'src/app/services/agenda-medica.service';
-import { HorarioService } from 'src/app/services/horario.service';
-import { NotificationService } from 'src/app/services/root/notification.service';
+import { AgendaMedicaService } from 'src/app/core/services/agenda-medica.service';
+import { HorarioService } from 'src/app/core/services/horario.service';
+import { NotificationService } from 'src/app/core/services/root/notification.service';
+import { AuthService } from 'src/app/services/root/auth.service';
 
 @Component({
   selector: 'app-medico',
@@ -12,8 +13,27 @@ import { NotificationService } from 'src/app/services/root/notification.service'
 export class MedicoComponent implements OnInit {
 
   agendaForm!: FormGroup;
-  evento!:any;
-  
+  idMedico!:any;
+
+  agendaList: any[] = [{
+    data: '2024-08-01',
+    hora: ['09:00', '10:00', '11:00', '14:00', '15:00']
+  },
+  {
+    data: '2024-08-02',
+    hora: ['08:00', '09:00', '10:00', '13:00', '16:00', '18:00']
+  },
+  {
+    data: '2024-08-02',
+    hora: ['08:00', '09:00', '10:00', '13:00']
+  },
+  {
+    data: '2024-08-02',
+    hora: ['08:00', '09:00', '10:00', '13:00', '16:00']
+  }
+];
+
+
   mostrarCriarEvento: boolean = true;
   horarioList: any[] = []; 
 
@@ -24,9 +44,12 @@ export class MedicoComponent implements OnInit {
     private notificationService: NotificationService,
     private fb: FormBuilder,
     private horarioService: HorarioService,
-    private agendaService: AgendaMedicaService
+    private agendaService: AgendaMedicaService,
+    private authService: AuthService
 
-    ) { }  
+    ) { 
+      console.log(this.authService.currentUserValue?.id);
+    }  
   
   ngOnInit() {
     this.iniciarForm();
@@ -130,6 +153,19 @@ export class MedicoComponent implements OnInit {
     });
   }
 
+  // listarAgenda(){
+  //   this.agendaService.getByFilter()
+  //     .subscribe({
+  //       next: (res) => {
+  //         const horarioList = res.data;
+  //         this.horarioList = this.ordenarHorarioList(horarioList);
+  //       },
+  //       error: (e) => {
+  //         this.notificationService.showError("Ocorreu algum erro ao carregar os Horários!", "Ops...");
+  //       },
+  //     });
+  // }
+
   // editar(id:any){
   //   this.obterEventoPorId(id);
   // } 
@@ -196,7 +232,7 @@ export class MedicoComponent implements OnInit {
   // }
 
   limpar(){
-    this.evento = null;
+    // this.evento = null;
     this.agendaForm.reset();
   }
 

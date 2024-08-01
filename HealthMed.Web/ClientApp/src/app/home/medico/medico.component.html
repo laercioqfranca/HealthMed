@@ -1,6 +1,6 @@
 <div class="row py-2">
   <div class="col titulo">
-    Cadastrar Agenda <i class="fa fa-plus" aria-hidden="true"></i>
+    Cadastrar Agenda
   </div>
 </div>
 
@@ -11,13 +11,13 @@
       <label for="data" class="label">Data</label>
       <input placeholder="dd/mm/aaaa" id="data" class="form-control" formControlName="data" bsDatepicker
         #dp="bsDatepicker" autocomplete="off" ondrop="return false;" required>
-      <span class="text-secondary text-danger"
-        *ngIf="data?.touched && data?.invalid">Campo obrigatório</span>
+      <span class="text-secondary text-danger" *ngIf="data?.touched && data?.invalid">Campo obrigatório</span>
     </div>
 
     <div class="col-4" *ngIf="data?.value">
       <label>Horários</label>
-      <ng-select [multiple]="true" [items]="horarioList" bindLabel="descricao" bindValue="id" (change)="addDataHorario(this.data?.value, $event)">
+      <ng-select [multiple]="true" [items]="horarioList" bindLabel="descricao" bindValue="id"
+        (change)="addDataHorario(this.data?.value, $event)">
       </ng-select>
     </div>
 
@@ -31,17 +31,21 @@
 
 <div class="row py-2">
   <div class="col titulo">
-    Agenda Médica
+    Minha Agenda
   </div>
 </div>
 
-<div class="flex-container">
-  <!-- <div class="card" *ngFor="let item of listaEventos">
-    <div class="col"><b>{{item.descricao}}</b></div>
-    <div class="col">{{item.data}}</div>
-    <div class="col">
-      <abbr title="Editar"><i class="fa-solid fa-pen-to-square me-3 text-primary active"></i></abbr>
-      <abbr title="Excluir"><i class="fa fa-trash text-danger active"></i></abbr>
-    </div>
-  </div> -->
+<div class="row mb-2" *ngFor="let data of agendaList">
+  <div class="col-2 card-data align-content-center">
+    <ul class="list-group list-group-horizontal position-relative">
+      <li class="list-group-item">{{data.data}}</li>
+      <li class="list-group-item"><i class="col fas fa-edit"></i></li>
+    </ul>
+  </div>
+
+  <div class="col">
+    <ul class="list-group list-group-horizontal position-relative overflow-auto w-75">
+      <li *ngFor="let hora of data.hora" class="list-group-item">{{hora}}</li>
+    </ul>
+  </div>
 </div>
