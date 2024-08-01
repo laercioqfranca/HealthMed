@@ -45,6 +45,12 @@ namespace HealthMed.Application.AppServices.Administracao
             return _mapper.Map<IEnumerable<UsuarioViewModel>>(query).FirstOrDefault();
         }
 
+        public async Task<IEnumerable<UsuarioMedicoViewModel>> GetListByIdEspecialidade(Guid idEspecialidade)
+        {
+            var usuarios = await _repository.GetListByIdEspecialidade(idEspecialidade);
+            return _mapper.Map<IEnumerable<UsuarioMedicoViewModel>>(usuarios);
+        }
+
         public async Task<UsuarioViewModel> GetByLogin(string login)
         {
             var query = await _repository.GetByLogin(login);

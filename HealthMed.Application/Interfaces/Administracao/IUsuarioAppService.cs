@@ -15,6 +15,7 @@ namespace HealthMed.Application.Interfaces.Administracao
         Task<UsuarioViewModel> GetByLogin(string login);
         Task<IEnumerable<UsuarioViewModel>> GetByFiltro(ConsultarPorFiltroViewModel filtro);
         Task<IEnumerable<UsuarioViewModel>> GetAll();
+        Task<IEnumerable<UsuarioMedicoViewModel>> GetListByIdEspecialidade(Guid idEspecialidade);
         Task Create(UsuarioDTO usuarioDTO);
         Task Update(UsuarioViewModel model);
         Task Delete(Guid id);

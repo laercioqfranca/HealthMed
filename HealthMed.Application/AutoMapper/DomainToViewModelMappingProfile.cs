@@ -28,6 +28,12 @@ namespace HealthMed.Application.AutoMapper
                 .ForMember(dest => dest.DataConsulta, opt => opt.MapFrom(opt => opt.Data.ToString("dd/MM/yyyy")))
                 .ForMember(dest => dest.HorarioConsulta, opt => opt.MapFrom(opt => opt.Horario.Descricao));
 
+            CreateMap<Usuario, UsuarioMedicoViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(opt => opt.Id))
+                .ForMember(dest => dest.Nome, opt => opt.MapFrom(opt => opt.Nome))
+                .ForMember(dest => dest.CRM, opt => opt.MapFrom(opt => opt.CRM))
+                .ForMember(dest => dest.Especialidade, opt => opt.MapFrom(opt => opt.Especialidade.Descricao));
+
         }
     }
 }

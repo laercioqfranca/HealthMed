@@ -93,6 +93,28 @@ namespace HealthMed.Web.Controllers.Administracao
             }
         }
 
+        [Route("GetListByIdEspecialidade/{idEspecialidade}")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetListByIdEspecialidade(Guid idEspecialidade)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    NotifyModelStateErrors();
+                    return Response(idEspecialidade);
+                }
+                var response = await _appService.GetListByIdEspecialidade(idEspecialidade);
+
+                return Response(response);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
         [Route("Create")]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] UsuarioDTO usuarioDTO)
