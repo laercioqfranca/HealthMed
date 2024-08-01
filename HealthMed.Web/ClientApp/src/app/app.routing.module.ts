@@ -12,13 +12,13 @@ const routes: Routes = [
 
   { path: 'login', loadChildren: () => import('./auth/login/login.module').then(x => x.LoginModule) },
 
-        // Usuário admin
-  { path: 'admin/home', loadChildren: () => import('./home/admin/admin.module').then(x=>x.AdminModule), 
+        // Usuários
+  { path: 'medico/home', loadChildren: () => import('./home/medico/medico.module').then(x=>x.MedicoModule), 
     pathMatch:'full', 
     canActivate: [AuthGuard]
   },
 
-  { path: 'cliente/home', loadChildren: () => import('./home/cliente/cliente.module').then(x=>x.ClienteModule), 
+  { path: 'paciente/home', loadChildren: () => import('./home/paciente/paciente.module').then(x=>x.PacienteModule), 
     pathMatch:'full', 
     canActivate: [AuthGuard]
   },
