@@ -22,7 +22,7 @@ namespace HealthMed.Infra.Data.Repositories.TabelaDominio
 
         public async Task<IEnumerable<Especialidade>> GetAll()
         {
-            return await DbSet.Where(x => !x.Excluido).AsNoTracking().ToListAsync();
+            return await DbSet.Where(x => !x.Excluido).OrderBy(x => x.Descricao).AsNoTracking().ToListAsync();
         }
     }
 }

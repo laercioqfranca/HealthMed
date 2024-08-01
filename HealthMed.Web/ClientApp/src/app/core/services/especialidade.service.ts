@@ -10,7 +10,7 @@ export class EspecialidadeService {
   constructor(private http: HttpClient) { }
 
   getAll() {
-    return this.http.get('v1/Especialidades/GetAll').pipe(
+    return this.http.get('v1/Especialidade/GetAll').pipe(
       map((response: any) => ({
         data: response.data,
         success: response.success,
