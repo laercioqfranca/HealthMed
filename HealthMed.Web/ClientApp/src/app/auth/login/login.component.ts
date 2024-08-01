@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
-
     if(this.formLogin.valid){
       this.loginService.login(this.formLogin?.value).subscribe({
         next: (res: any) => {

@@ -43,8 +43,8 @@ namespace HealthMed.Application.AppServices
 
         public async Task Create(AgendaMedicaDTO agendaMedicaDTO)
         {
-             var command = _mapper.Map<AgendaMedicaCreateCommand>(agendaMedicaDTO);
-            //command.UsuarioRequerenteId = new Guid(_httpContextAccessor.HttpContext?.User.Claims.Single(c => c.Type == "UsuarioID").ToString());
+            var command = _mapper.Map<AgendaMedicaCreateCommand>(agendaMedicaDTO);
+            command.UsuarioRequerenteId = new Guid(_httpContextAccessor.HttpContext?.User.Identity.Name);
             await _bus.SendCommand(command);
         }
 

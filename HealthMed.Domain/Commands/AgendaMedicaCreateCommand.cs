@@ -10,7 +10,7 @@ namespace HealthMed.Domain.Commands
 {
     public class AgendaMedicaCreateCommand : Command
     {
-        public Guid IdMedico { get; protected set; }
+        //public Guid IdMedico { get; protected set; }
         public List<AgendaCreateCommand> Content { get; protected set; }
         public class AgendaCreateCommand()
         {
