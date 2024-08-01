@@ -20,6 +20,8 @@ namespace HealthMed.Application.AutoMapper
 
             CreateMap<AgendaMedicaDTO, AgendaMedicaCreateCommand>();
             CreateMap<AgendaDTO, AgendaCreateCommand>();
+
+            CreateMap<AgendaPacienteDTO, AgendaPacienteCreateCommand>();
         }
     }
 }

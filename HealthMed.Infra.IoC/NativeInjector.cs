@@ -43,6 +43,7 @@ namespace HealthMed.Infra.IoC
             services.AddScoped<IEspecialidadeAppService, EspecialidadeAppService>();
             services.AddScoped<IHorarioAppService, HorarioAppService>();
             services.AddScoped<IAgendaMedicaAppService, AgendaMedicaAppService>();
+            services.AddScoped<IAgendaPacienteAppService, AgendaPacienteAppService>();
 
             // Domain Bus (Mediator)
             services.AddScoped<IMediatorHandler, InMemoryBus>();
@@ -56,6 +57,7 @@ namespace HealthMed.Infra.IoC
             services.AddScoped<IRequestHandler<UsuarioUpdateCommand, Unit>, UsuarioCommandHandler>();
             services.AddScoped<IRequestHandler<UsuarioDeleteCommand, Unit>, UsuarioCommandHandler>();
             services.AddScoped<IRequestHandler<AgendaMedicaCreateCommand, Unit>, AgendaMedicaCommandHandler>();
+            services.AddScoped<IRequestHandler<AgendaPacienteCreateCommand, Unit>, AgendaPacienteCommandHandler>();
 
             // Infra - Data EventSourcing
             services.AddScoped<IEventStore, EventStore>();
@@ -68,6 +70,7 @@ namespace HealthMed.Infra.IoC
             services.AddScoped<IEspecialidadeRepository, EspecialidadeRepository>();
             services.AddScoped<IHorarioRepository, HorarioRepository>();
             services.AddScoped<IAgendaMedicaRepository, AgendaMedicaRepository>();
+            services.AddScoped<IAgendaPacienteRepository, AgendaPacienteRepository>();
             // Infra - Service
         }
     }
