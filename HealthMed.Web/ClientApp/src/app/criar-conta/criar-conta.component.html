@@ -51,6 +51,19 @@
         </mat-form-field>
       </div>
 
+      <div class="row" *ngIf="this.criarContaForm.get('idEspecialidade')">
+        <mat-form-field class="col">
+          <mat-label>Especialidade</mat-label>
+          <mat-select>
+              <mat-option *ngFor="let item of especialidadeList" [value]="item.id">{{item.descricao}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="this.criarContaForm.get('idEspecialidade')?.invalid">
+            Campo Obrigatório
+          </mat-error>
+        </mat-form-field>
+      </div>
+      
+
       <div class="row">
         <mat-form-field class="col">
             <mat-label>E-mail</mat-label>

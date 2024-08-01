@@ -8,7 +8,7 @@
     "start:windows": "ng serve --port 44423 --ssl --ssl-cert \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.pem\" --ssl-key \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.key\"",
     "start:default": "ng serve --port 44423 --ssl --ssl-cert \"$HOME/.aspnet/https/${npm_package_name}.pem\" --ssl-key \"$HOME/.aspnet/https/${npm_package_name}.key\"",
     "build": "ng build",
-    "buildprod":"ng build --configuration=production --aot --output-hashing=all",
+    "buildprod": "ng build --configuration=production --aot --output-hashing=all",
     "build:ssr": "ng run HealthMed:server:dev",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -26,9 +26,8 @@
     "@angular/platform-browser-dynamic": "^16.1.7",
     "@angular/platform-server": "^16.1.7",
     "@angular/router": "^16.1.7",
-
     "@fortawesome/fontawesome-free": "^6.4.2",
-
+    "@ng-select/ng-select": "^11.2.0",
     "bootstrap": "^5.2.3",
     "crypto-js": "^4.2.0",
     "jquery": "^3.6.4",
