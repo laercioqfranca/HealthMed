@@ -21,6 +21,11 @@ namespace HealthMed.Infra.Data.Configuration
             DbSet.Add(obj);
         }
 
+        public virtual void AddList(List<TEntity> objs)
+        {
+            DbSet.AddRange(objs);
+        }
+
         public virtual void Update(TEntity obj)
         {
             DbSet.Update(obj);

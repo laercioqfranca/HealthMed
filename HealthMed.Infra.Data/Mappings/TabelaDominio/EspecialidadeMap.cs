@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using HealthMed.Domain.Models;
+using HealthMed.Domain.Models.TabelaDominio;
 
-namespace HealthMed.Infra.Data.Mappings
+namespace HealthMed.Infra.Data.Mappings.TabelaDominio
 {
     public class EspecialidadeMap : IEntityTypeConfiguration<Especialidade>
     {
