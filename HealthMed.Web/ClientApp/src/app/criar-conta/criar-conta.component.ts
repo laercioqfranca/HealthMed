@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NotificationService } from '../services/root/notification.service';
 import { EnumTipoPerfil } from '../shared/utils/enums';
 import { EspecialidadeService } from '../core/services/especialidade.service';
+import { PerfilService } from '../services/perfil.service';
 
 @Component({
   selector: 'app-criar-conta',
@@ -16,8 +17,12 @@ export class CriarContaComponent implements OnInit {
   criarContaForm!: FormGroup;
   enumTipoPerfil = EnumTipoPerfil;
   especialidadeList: any = [];
+  perfilList: any = [];
 
+  get idPerfil() { return this.criarContaForm.get('idPerfil') };
+  get idEspecialidade() { return this.criarContaForm.get('idEspecialidade') };
   get tipoPerfil() { return this.criarContaForm.get('tipoPerfil') };
+  get crm() { return this.criarContaForm.get('crm') };
   get nome() { return this.criarContaForm.get('nome') };
   get cpf() { return this.criarContaForm.get('cpf') };
   get email() { return this.criarContaForm.get('email') };
@@ -28,27 +33,30 @@ export class CriarContaComponent implements OnInit {
     private router: Router,
     private notificationService: NotificationService,
     private fb: FormBuilder,
-    private especialidadeService: EspecialidadeService
+    private especialidadeService: EspecialidadeService,
+    private perfilService: PerfilService,
   ) { }
 
   ngOnInit() {
     this.iniciarForm();
+    this.carregarComboEspecialidade();
+    this.carregarPerfis();
   }
 
   iniciarForm() {
     this.criarContaForm = this.fb.group({
+      idPerfil: [null],
       tipoPerfil: [null, Validators.required],
-      nome: [{ value: null, disabled: true }, Validators.required],
-      cpf: [{ value: null, disabled: true }, Validators.required],
-      email: [{ value: null, disabled: true }, [Validators.required, Validators.email]],
-      senha: [{ value: null, disabled: true }, [Validators.required, Validators.minLength(8)]]
+      idEspecialidade: [null],
+      crm: [null],
+      nome: [null, Validators.required],
+      cpf: [null, Validators.required],
+      email: [null, [Validators.required, Validators.email]],
+      senha: [null, [Validators.required, Validators.minLength(8)]]
     });
-
-    this.carregarComboEspecialidade();
   }
 
   carregarComboEspecialidade(){
-
     this.especialidadeService.getAll().subscribe({
       next: res => {
         if(res.success){
@@ -58,16 +66,31 @@ export class CriarContaComponent implements OnInit {
         this.notificationService.showError("Ocorreu algum erro ao carregar as especialidades!", "Ops...");
       }
     });
+  }
 
+  carregarPerfis(){
+    this.perfilService.getAll().subscribe({
+      next: res => {
+        if(res.success){
+          this.perfilList = res.data;
+        }
+      }, error: e => {
+        this.notificationService.showError("Ocorreu algum erro ao carregar os Perfis!", "Ops...");
+      }
+    });
   }
 
   onSubmit() {
+
+    let model = this.criarContaForm?.getRawValue();
+
     if (this.criarContaForm.valid) {
       this.usuarioService.create(this.criarContaForm?.value).subscribe({
         next: (res: any) => {
           if (res?.success) {
             this.notificationService.showSuccess('Conta criada com sucesso!', '');
             this.criarContaForm.reset();
+            this.iniciarForm();
             this.router.navigateByUrl('/login');
           }
         },
@@ -79,17 +102,16 @@ export class CriarContaComponent implements OnInit {
   }
 
   changeTipoPerfil() {
-    let tipoPerfil = this.tipoPerfil?.value;
-    this.criarContaForm.reset();
-    this.criarContaForm.enable();
+    const tipoPerfil = this.tipoPerfil?.value;
     this.tipoPerfil?.setValue(tipoPerfil);
 
     if (this.tipoPerfil?.value == EnumTipoPerfil.Medico) {
-      this.criarContaForm.addControl('crm', this.fb.control(null, Validators.required));
-      this.criarContaForm.addControl('idEspecialidade', this.fb.control(null, Validators.required));
+      const idPerfil = this.perfilList.filter((p:any) => p.idTipoPerfil == EnumTipoPerfil.Medico)
+      this.idPerfil?.setValue(idPerfil[0].id);
+
     } else {
-      this.criarContaForm.removeControl('crm');
-      this.criarContaForm.removeControl('idEspecialidade');
+      const idPerfil = this.perfilList.filter((p:any) => p.idTipoPerfil == EnumTipoPerfil.Paciente)
+      this.idPerfil?.setValue(idPerfil[0].id);
     }
   }
 

@@ -41,23 +41,23 @@
         </mat-form-field>
       </div>
 
-      <div class="row" *ngIf="this.criarContaForm.get('crm')">
+      <div class="row" *ngIf="this.tipoPerfil?.value == enumTipoPerfil.Medico">
         <mat-form-field class="col">
             <mat-label>CRM</mat-label>
-            <input matInput formControlName="crm" id="crm" [ngClass]="this.criarContaForm.get('crm')?.disabled? 'disabled-field' : null" mask="00000/SS" placeholder="00000/UF"/>
+            <input matInput formControlName="crm" id="crm" [ngClass]="this.crm?.disabled? 'disabled-field' : null" mask="00000/SS" placeholder="00000/UF"/>
             <mat-error *ngIf="this.criarContaForm.get('crm')?.invalid">
               Campo Obrigatório
             </mat-error>
         </mat-form-field>
       </div>
 
-      <div class="row" *ngIf="this.criarContaForm.get('idEspecialidade')">
+      <div class="row" *ngIf="this.tipoPerfil?.value == enumTipoPerfil.Medico">
         <mat-form-field class="col">
           <mat-label>Especialidade</mat-label>
           <mat-select>
               <mat-option *ngFor="let item of especialidadeList" [value]="item.id">{{item.descricao}}</mat-option>
           </mat-select>
-          <mat-error *ngIf="this.criarContaForm.get('idEspecialidade')?.invalid">
+          <mat-error *ngIf="this.idEspecialidade?.invalid">
             Campo Obrigatório
           </mat-error>
         </mat-form-field>
@@ -95,7 +95,7 @@
           <button class="btn btn-danger" (click)="cancelar()"><i class="fa fa-sign-in"></i> Cancelar</button>
         </div>
         <div class="col text-end">
-          <button type="submit" [disabled]="criarContaForm.invalid" class="btn btn-success"><i class="fa fa-sign-in"></i> Enviar</button>
+          <button type="submit" [disabled]="this.criarContaForm.invalid" class="btn btn-success"><i class="fa fa-sign-in"></i> Enviar</button>
         </div>
       </div>
     </form>
