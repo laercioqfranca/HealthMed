@@ -33,9 +33,9 @@ namespace HealthMed.Application.AppServices.Medico
             _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
-        public async Task<IEnumerable<AgendaMedicaViewModel>> GetByFilter(DateTime? data, Guid? idHorario, Guid? idMedico, Guid? idPaciente)
+        public async Task<IEnumerable<AgendaMedicaViewModel>> GetByFilter(AgendaMedicaFiltroViewModel filtro)
         {
-            var query = await _repository.GetByFilter(data, idHorario, idMedico, idPaciente);
+            var query = await _repository.GetByFilter(filtro.Data, filtro.IdHorario, filtro.IdMedico, filtro.IdPaciente);
             var list = _mapper.Map<List<AgendaMedicaViewModel>>(query);
             return list;
 

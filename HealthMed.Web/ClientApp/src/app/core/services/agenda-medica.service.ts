@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { AgendaMedicaModel } from '../models/agendaMedicaModel';
-import { AgendaMedicaFiltroModel } from '../models/agendaMedicaFiltroModel';
+import { AgendaMedicaModel } from '../../models/agendaMedicaModel';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +10,8 @@ export class AgendaMedicaService {
 
   constructor(private http:HttpClient) { }
 
-  getByFilter(filtro: any): Observable<any> {
-    return this.http.get('v1/AgendaMedica/GetByFilter', {params: filtro}).pipe(
+  getByFilter(filtro:any): Observable<any> {
+    return this.http.get('v1/AgendaMedica/GetByFilter', {params:filtro}).pipe(
       map((response: any) => ({
         data: response.data,
         success: response.success,

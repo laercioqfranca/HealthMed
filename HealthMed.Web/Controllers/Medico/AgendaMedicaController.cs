@@ -5,6 +5,8 @@ using HealthMed.Core.Notifications;
 using HealthMed.Application.DTO;
 using HealthMed.Application.Interfaces.Medico;
 using Microsoft.AspNetCore.Authorization;
+using HealthMed.Application.Interfaces;
+using HealthMed.Application.ViewModels;
 
 namespace HealthMed.Web.Controllers.Medico
 {
@@ -24,12 +26,11 @@ namespace HealthMed.Web.Controllers.Medico
 
         [HttpGet]
         [Route("GetByFilter")]
-        [Authorize]
-        public async Task<IActionResult> GetByFilter(DateTime? data, Guid? idHorario, Guid? idMedico, Guid? idPaciente)
+        public async Task<IActionResult> GetByFilter([FromQuery] AgendaMedicaFiltroViewModel filtro)
         {
             try
             {
-                var result = await _appService.GetByFilter(data, idHorario, idMedico, idPaciente);
+                var result = await _appService.GetByFilter(filtro);
                 return Response(result);
             }
             catch (Exception ex)

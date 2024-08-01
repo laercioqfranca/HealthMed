@@ -13,7 +13,7 @@ namespace HealthMed.Application.Interfaces.Medico
 {
     public interface IAgendaMedicaAppService
     {
-        Task<IEnumerable<AgendaMedicaViewModel>> GetByFilter(DateTime? data, Guid? idHorario, Guid? idMedico, Guid? idPaciente);
+        Task<IEnumerable<AgendaMedicaViewModel>> GetByFilter(AgendaMedicaFiltroViewModel filtro);
         Task Create(AgendaMedicaDTO agendaMedicaDTO);
     }
 }
