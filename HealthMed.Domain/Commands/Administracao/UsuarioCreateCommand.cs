@@ -15,6 +15,7 @@ namespace HealthMed.Domain.Commands.Administracao
         public string Nome { get; protected set; }
         public string Email { get; protected set; }
         public string Senha { get; protected set; }
+        public long Cpf { get; protected set; }
         public string? CRM { get; protected set; }
 
         public Guid? IdPerfil { get; protected set; }
