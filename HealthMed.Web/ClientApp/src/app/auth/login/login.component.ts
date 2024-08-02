@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotificationService } from '../../services/root/notification.service';
 import { LoginService } from '../../services/root/login.service';
 import { ILogin } from '../../interfaces/interfaces';
 import { JwtService } from '../../services/root/jwt.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/root/auth.service';
+import { EnumTipoPerfil } from 'src/app/shared/utils/enums';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +22,8 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
     private jwtService: JwtService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private fb : FormBuilder
     ) { }
 
   ngOnInit() {
@@ -30,14 +31,13 @@ export class LoginComponent implements OnInit {
   }
 
   criaFormLogin(){
-    this.formLogin = new FormGroup({
-      login: new FormControl('', [Validators.required, Validators.email]),
-      senha: new FormControl('', Validators.required),
-    });
+    this.formLogin = this.fb.group({
+      login:[null, [Validators.required, Validators.email]],
+      senha: [null, Validators.required]
+    })
   }
 
   onSubmit(){
-
     if(this.formLogin.valid){
       this.loginService.login(this.formLogin?.value).subscribe({
         next: (res: any) => {
@@ -46,12 +46,12 @@ export class LoginComponent implements OnInit {
             const userJwt = <ILogin>res.data;
             const usuario = this.jwtService.decodeToken(userJwt.accessToken);
 
-            if(usuario?.enumPerfil == '1'){
-              this.router.navigateByUrl('/admin/home');
+            if(usuario?.enumPerfil == EnumTipoPerfil.Medico){
+              this.router.navigateByUrl('/medico/home');
             }
 
-            if(usuario?.enumPerfil == '2'){
-              this.router.navigateByUrl('/cliente/home');
+            if(usuario?.enumPerfil == EnumTipoPerfil.Paciente){
+              this.router.navigateByUrl('/paciente/home');
             }
 
             this.authService.setSession(userJwt);
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
         },
         error: (e) => {
           this.formLogin.get('senha')?.setValue('');
-          this.notificationService.showError(e.message);
+          this.notificationService.showError('Ocorreu algum erro!', '');
         },
       });
     }

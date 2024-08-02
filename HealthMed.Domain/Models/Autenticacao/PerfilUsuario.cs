@@ -1,7 +1,5 @@
 ﻿using HealthMed.Core.Models;
 using HealthMed.Domain.Enum;
-using System;
-using System.Collections.Generic;
 
 namespace HealthMed.Domain.Models.Autenticacao
 {

@@ -16,6 +16,7 @@ import { defineLocale, ptBrLocale } from 'ngx-bootstrap/chronos';
 import { FooterComponent } from './core/footer/footer.component';
 import { CoreModule } from './core/core.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxMaskDirective } from 'ngx-mask';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -25,6 +26,7 @@ function getDatepickerConfig(): BsDatepickerConfig {
     dateFormat: 'DD/MM/YYYY',
     containerClass: 'theme-red',
     showWeekNumbers: false,
+    
   });
 }
 
@@ -43,6 +45,7 @@ function getDatepickerConfig(): BsDatepickerConfig {
     BsDatepickerModule.forRoot(),
     CoreModule,
     NgxSpinnerModule,
+    NgxMaskDirective,
 
     RouterModule.forRoot([
       { path: '', component: LoginComponent, pathMatch: 'full' }

@@ -9,7 +9,7 @@ namespace HealthMed.Application.Interfaces.Auth
 {
     public interface IAutenticacaoAppService : IDisposable
     {
-        Task<UsuarioViewModel> Autenticar(LoginViewModel loginViewModel);
+        Task<PacienteViewModel> Autenticar(LoginViewModel loginViewModel);
     
     }
 }

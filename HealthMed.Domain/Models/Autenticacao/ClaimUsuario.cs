@@ -1,5 +1,4 @@
 ﻿using HealthMed.Core.Models;
-using System;
 
 namespace HealthMed.Domain.Models.Autenticacao
 {

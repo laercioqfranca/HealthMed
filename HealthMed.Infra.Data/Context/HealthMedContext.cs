@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using HealthMed.Infra.Data.Mappings;
 using HealthMed.Infra.Data.Mappings.Autenticacao;
 using System;
+using HealthMed.Infra.Data.Mappings.TabelaDominio;
 
 namespace HealthMed.Infra.Data.Context
 {
@@ -22,8 +23,10 @@ namespace HealthMed.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new PerfilUsuarioMap());
             modelBuilder.ApplyConfiguration(new ClaimUsuarioMap());
             modelBuilder.ApplyConfiguration(new ClaimPerfilMap());
-            modelBuilder.ApplyConfiguration(new EventoMap());
-            modelBuilder.ApplyConfiguration(new SubscriptionMap());
+            modelBuilder.ApplyConfiguration(new AgendaMedicaMap());
+            modelBuilder.ApplyConfiguration(new EspecialidadeMap());
+            modelBuilder.ApplyConfiguration(new HorarioMap());
+            modelBuilder.ApplyConfiguration(new AgendaPacienteMap());
 
 
             #region Mapeamento das Tabelas de tipos e domínios

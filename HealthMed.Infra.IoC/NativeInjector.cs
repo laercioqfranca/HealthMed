@@ -17,12 +17,23 @@ using HealthMed.Application.AppServices.Auth;
 using HealthMed.Application.Interfaces.Auth;
 using HealthMed.Domain.Commands.Auth;
 using HealthMed.Application.AppServices.Autenticacao;
-using HealthMed.Domain.Commands.Inscricao;
-using HealthMed.Application.Interfaces;
-using HealthMed.Application.AppServices;
-using HealthMed.Domain.Interfaces.Infra.Data.Repositories;
-using HealthMed.Infra.Data.Repositories;
-using HealthMed.Domain.Commands.Evento;
+using HealthMed.Infra.Data.Repositories.TabelaDominio;
+using HealthMed.Domain.Interfaces.Infra.Data.Repositories.TabelaDominio;
+using HealthMed.Application.Interfaces.TabeleDominio;
+using HealthMed.Application.AppServices.TabelaDominio;
+using HealthMed.Application.AppServices.Paciente;
+using HealthMed.Application.AppServices.Medico;
+using HealthMed.Application.Interfaces.Medico;
+using HealthMed.Application.Interfaces.Paciente;
+using HealthMed.Domain.Commands.Paciente;
+using HealthMed.Domain.Commands.Medico;
+using HealthMed.Domain.Interfaces.Infra.Data.Repositories.Paciente;
+using HealthMed.Domain.Interfaces.Infra.Data.Repositories.Medico;
+using HealthMed.Infra.Data.Repositories.Medico;
+using HealthMed.Infra.Data.Repositories.Paciente;
+using HealthMed.Domain.Interfaces.Infra.Services;
+using HealthMed.Domain.Services;
+using HealthMed.Infra.Services;
 
 namespace HealthMed.Infra.IoC
 {
@@ -37,8 +48,10 @@ namespace HealthMed.Infra.IoC
             services.AddScoped<IAutenticacaoAppService, AutenticacaoAppService>();
             services.AddScoped<IUsuarioAppService, UsuarioAppService>();
             services.AddScoped<IPerfilUsuarioAppService, PerfilUsuarioAppService>();
-            services.AddScoped<IEventoAppService, EventoAppService>();
-            services.AddScoped<ISubscriptionAppService, SubscriptionAppService>();
+            services.AddScoped<IEspecialidadeAppService, EspecialidadeAppService>();
+            services.AddScoped<IHorarioAppService, HorarioAppService>();
+            services.AddScoped<IAgendaMedicaAppService, AgendaMedicaAppService>();
+            services.AddScoped<IAgendaPacienteAppService, AgendaPacienteAppService>();
 
             // Domain Bus (Mediator)
             services.AddScoped<IMediatorHandler, InMemoryBus>();
@@ -48,17 +61,12 @@ namespace HealthMed.Infra.IoC
 
             // Domain - Commands
             services.AddScoped<IRequestHandler<AutenticarCommand, Unit>, AutenticacaoCommandHandler>();
-
             services.AddScoped<IRequestHandler<UsuarioCreateCommand, Unit>, UsuarioCommandHandler>();
             services.AddScoped<IRequestHandler<UsuarioUpdateCommand, Unit>, UsuarioCommandHandler>();
             services.AddScoped<IRequestHandler<UsuarioDeleteCommand, Unit>, UsuarioCommandHandler>();
-
-            services.AddScoped<IRequestHandler<SubscriptionCreateCommand, Unit>, SubscriptionCommandHandler>();
-            services.AddScoped<IRequestHandler<SubscriptionDeleteCommand, Unit>, SubscriptionCommandHandler>();
-
-            services.AddScoped<IRequestHandler<EventoCreateCommand, Unit>, EventoCommandHandler>();
-            services.AddScoped<IRequestHandler<EventoUpdateCommand, Unit>, EventoCommandHandler>();
-            services.AddScoped<IRequestHandler<EventoDeleteCommand, Unit>, EventoCommandHandler>();
+            services.AddScoped<IRequestHandler<AgendaMedicaCreateCommand, Unit>, AgendaMedicaCommandHandler>();
+            services.AddScoped<IRequestHandler<AgendaPacienteCreateCommand, Unit>, AgendaPacienteCommandHandler>();
+            services.AddScoped<IRequestHandler<AgendaPacienteDeleteCommand, Unit>, AgendaPacienteCommandHandler>();
 
             // Infra - Data EventSourcing
             services.AddScoped<IEventStore, EventStore>();
@@ -68,10 +76,13 @@ namespace HealthMed.Infra.IoC
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IPerfilUsuarioRepository, PerfilUsuarioRepository>();
-            services.AddScoped<IEventoRepository, EventoRepository>();
-            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
-
+            services.AddScoped<IEspecialidadeRepository, EspecialidadeRepository>();
+            services.AddScoped<IHorarioRepository, HorarioRepository>();
+            services.AddScoped<IAgendaMedicaRepository, AgendaMedicaRepository>();
+            services.AddScoped<IAgendaPacienteRepository, AgendaPacienteRepository>();
             // Infra - Service
+            services.AddScoped<IEmailSenderService, EmailSenderService>();
+            services.AddTransient<IEmailSender, EmailSender>();
         }
     }
 }

@@ -21,6 +21,9 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { MatButtonModule } from '@angular/material/button';
 
 const mainModulesPack = [
   CommonModule,
@@ -46,14 +49,17 @@ const materialModulesPack = [
   MatDialogModule,
   MatGridListModule,
   MatSelectModule,
-  MatFormFieldModule
-
+  MatFormFieldModule,
+  MatButtonModule
 ];
 
 const MODULOS_COMPARTILHADOS = [
     ...mainModulesPack,
     ...materialModulesPack,
-    BsDatepickerModule
+    BsDatepickerModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
+    NgSelectModule,
 ]
 
 
@@ -64,6 +70,7 @@ const MODULOS_COMPARTILHADOS = [
   ],
   exports: [
     ...MODULOS_COMPARTILHADOS
-  ]
+  ],
+  providers:[provideNgxMask()]
 })
 export class SharedModule { }

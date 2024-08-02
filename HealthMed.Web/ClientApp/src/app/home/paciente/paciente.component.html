@@ -1,0 +1,85 @@
+<!-- AGENDAR CONSULTA -->
+<div class="row py-2">
+  <div class="col titulo">
+    Agendar Consulta
+  </div>
+</div>
+
+<form [formGroup]="agendarConsultaForm">
+  
+  <div class="row align-items-center py-3">
+
+    <div class="col-4">
+      <label>Selecione a especialidade médica</label>
+      <ng-select [formControl]="idEspecialidade" (change)="obterMedicoPorEspecialidade($event)">
+          <ng-option *ngFor="let item of especialidadeList" [value]="item.id">{{item.descricao}}</ng-option>
+      </ng-select>
+    </div>
+
+    <div class="col-4" *ngIf="this.idEspecialidade?.valid">
+      <label>Selecione o médico</label>
+      <ng-select [formControl]="idMedico" (change)="obterAgendaMedica($event)">
+          <ng-option *ngFor="let item of medicoList" [value]="item.id">{{item.nome}}</ng-option>
+      </ng-select>
+    </div>
+
+    <div class="col pt-4">
+      <button class="btn btn-warning me-2" (click)="limpar()"><i class="fa fa-sign-in"></i> Limpar</button>
+      <button [disabled]="agendarConsultaForm.invalid" class="btn btn-success" (click)="modalCadastrar()"><i class="fa fa-sign-in"></i>Agendar Consulta</button>
+    </div>
+
+  </div>
+
+  
+  <div *ngIf="idMedico.valid">
+
+    <div>Selecione um horário disponível</div>
+
+    <div class="row mb-2" *ngFor="let agenda of agendaDoMedico.agenda">
+
+      <div class="col-2 align-content-center">
+        <ul class="list-group list-group-horizontal position-relative">
+          <li class="list-group-item">{{agenda.data}}</li>
+          <li class="list-group-item"><i></i></li>
+        </ul>
+      </div>
+
+      <div class="col">
+        <ul class="list-group list-group-horizontal position-relative overflow-auto w-75">
+          <li *ngFor="let hora of agenda.horarios" class="btn list-group-item" 
+          [class.selecionado]="isHorarioSelecionado(hora.idAgenda, hora.id)"
+          [ngClass]="hora.agendado? 'indisponivel':''"
+          (click)="selecionarHorario(hora.idAgenda, hora.id, hora.agendado)">{{hora.horario}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- MINHAS CONSULTAS -->
+<div class="row mt-2 py-2">
+  <div class="col titulo">
+    Minhas Consultas
+  </div>
+</div>
+
+<table class="table" *ngIf="agendaDoPaciente.length > 0">
+  <thead>
+    <tr>
+      <th class="col-3">Data</th>
+      <th class="col-1">Hora</th>
+      <th class="col-3">Médico</th>
+      <th class="col-3">Especialidade</th>
+      <th class="col-2 text-center">Cancelar Consulta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let agenda of agendaDoPaciente">
+      <td>{{ agenda.dataConsulta | date : 'dd/MM/yyyy'}}</td>
+      <td>{{agenda.horarioConsulta}}</td>
+      <td>{{agenda.nomeMedico}}</td>
+      <td>{{agenda.especialidadeMedica}}</td>
+      <td class="text-center"><button  (click)="modalCancelar(agenda.idAgendaMedica)" class="btn fa fa-close text-danger cancelamento"></button></td>
+    </tr>
+  </tbody>
+</table>

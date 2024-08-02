@@ -44,7 +44,7 @@ namespace HealthMed.Web.Controllers.Auth
 
         #region GET
 
-        private Token GetJwtToken(UsuarioViewModel user)
+        private Token GetJwtToken(PacienteViewModel user)
         {
             // Use a variável 'validFor' para configurar a expiração do token
             TimeSpan validFor = TimeSpan.FromDays(1);

@@ -23,19 +23,19 @@ export class JwtService {
     }
 
     getToken(): string | null {
-      return window.localStorage.getItem('jwtMusicEventsToken');
+      return window.localStorage.getItem('jwtHealthMedToken');
     }
 
     saveToken(token: string) {
       if (token) {
-        window.localStorage['jwtMusicEventsToken'] = token;
+        window.localStorage['jwtHealthMedToken'] = token;
       } else {
         console.error('Attempted to save undefined token');
       }
     }
 
     destroyToken() {
-      window.localStorage.removeItem('jwtMusicEventsToken');
+      window.localStorage.removeItem('jwtHealthMedToken');
     }
 
     isTokenExpired(): boolean {

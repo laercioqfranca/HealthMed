@@ -10,8 +10,8 @@
 
     public enum EnumTipoPerfil : int
     {
-        Administrador = 1,
-        Cliente = 2
+        Medico = 1,
+        Paciente = 2
     }
 
 }

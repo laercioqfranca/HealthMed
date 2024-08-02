@@ -1,0 +1,29 @@
+
+.btn-add{
+    border: 1px solid black;
+    border-radius: 50%;
+    color: rgb(170, 173, 255);
+    background-color:  rgb(9, 9, 44);
+}
+
+.btn-add:hover{
+    background-color:  rgb(131, 0, 0);
+}
+
+.selecionado {
+    background-color: #96d7f8;
+}
+
+.indisponivel{
+    cursor: not-allowed;
+    color: #f82424;
+    background-color: #d3cfc4;
+}
+
+.cancelamento{
+    cursor: pointer;
+}
+
+.cancelamento:hover{
+    background-color: #eae2e1;
+}

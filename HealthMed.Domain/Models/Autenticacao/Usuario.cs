@@ -1,4 +1,5 @@
 ﻿using HealthMed.Core.Models;
+using HealthMed.Domain.Models.TabelaDominio;
 using HealthMed.Domain.Utils;
 using System;
 using System.Collections.Generic;
@@ -13,26 +14,31 @@ namespace HealthMed.Domain.Models.Autenticacao
         }
 
         public string Nome { get; private set; }
-        public int Idade { get; private set; }
         public string Login { get; private set; }
         public string Senha { get; private set; }
         public string Salt { get; private set; }
         public string Email { get; private set; }
-        public Guid? IdPerfil { get; private set; }      
+        public long Cpf { get; private set; }
+        public string? CRM { get; private set; }
+        public Guid? IdEspecialidade { get; private set; }
+        public Guid? IdPerfil { get; private set; }
         public DateTime DataInclusao { get; private set; }
         public bool Excluido { get; private set; }
 
+        public virtual Especialidade Especialidade { get; private set; }
         public virtual PerfilUsuario Perfil { get; private set; }
-        public virtual IEnumerable<Subscription> EventoUsuarios { get; set; }
 
-        public void setUsuario(Guid id, string nome, int idade, string senha, string email, Guid? idPerfil)
+
+        public void setUsuario(Guid id, string nome, string senha, string email, long cpf, Guid? idPerfil, string? cRM, Guid? idEspecialidade)
         {
             Id = id;
             Nome = nome;
-            Idade = idade;
             Email = email;
-            IdPerfil = Guid.Parse("E3430F1F-D2D4-4A88-9E82-6C9F475F3A80"); //Perfil cliente.          
+            IdPerfil = idPerfil;        
             Login = email;
+            Cpf = cpf;
+            CRM = cRM;
+            IdEspecialidade = idEspecialidade;
             DataInclusao = DateTime.Now;
             setCriptografia(senha, null);
         }
@@ -52,13 +58,12 @@ namespace HealthMed.Domain.Models.Autenticacao
         public void setCriptografia(string senha, string salt)
         {
             Salt = string.IsNullOrEmpty(salt) ? Cryptography.GetSalt() : salt;
-            Senha = Cryptography.GetHash(Salt, string.IsNullOrEmpty(senha) ? "MusicEvent2@2023" : senha);
+            Senha = Cryptography.GetHash(Salt, string.IsNullOrEmpty(senha) ? "Agendamento@2024" : senha);
         }
 
-        public void setUpdateUsuario(string nome, int idade, string email, Guid? idPerfil)
+        public void setUpdateUsuario(string nome, string email, Guid? idPerfil)
         {
             Nome = nome;
-            Idade = idade;
             Email = email;
             IdPerfil = idPerfil;
             Perfil = null;

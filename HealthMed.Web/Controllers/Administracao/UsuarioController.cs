@@ -37,8 +37,7 @@ namespace HealthMed.Web.Controllers.Administracao
                     return Response();
                 }
 
-
-                IEnumerable<UsuarioViewModel> response = await _appService.GetAll();
+                IEnumerable<PacienteViewModel> response = await _appService.GetAll();
 
                 return Response(response);
             }
@@ -93,6 +92,28 @@ namespace HealthMed.Web.Controllers.Administracao
             }
         }
 
+        [Route("GetListByIdEspecialidade/{idEspecialidade}")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetListByIdEspecialidade(Guid idEspecialidade)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    NotifyModelStateErrors();
+                    return Response(idEspecialidade);
+                }
+                var response = await _appService.GetListByIdEspecialidade(idEspecialidade);
+
+                return Response(response);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
         [Route("Create")]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] UsuarioDTO usuarioDTO)
@@ -119,7 +140,7 @@ namespace HealthMed.Web.Controllers.Administracao
         [Route("Update")]
         [HttpPut]
         [Authorize]
-        public async Task<IActionResult> Put([FromBody] UsuarioViewModel putViewModel)
+        public async Task<IActionResult> Put([FromBody] PacienteViewModel putViewModel)
         {
             try
             {

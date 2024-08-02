@@ -33,28 +33,34 @@ namespace HealthMed.Application.AppServices.Administracao
             _httpContextAcessor = httpContextAccessor;
         }
 
-        public async Task<IEnumerable<UsuarioViewModel>> GetAll()
+        public async Task<IEnumerable<PacienteViewModel>> GetAll()
         {
             var usuarios = await _repository.GetAll();
-            return _mapper.Map<IEnumerable<UsuarioViewModel>>(usuarios);
+            return _mapper.Map<IEnumerable<PacienteViewModel>>(usuarios);
         }
 
-        public async Task<UsuarioViewModel> GetById(Guid id)
+        public async Task<PacienteViewModel> GetById(Guid id)
         {
             var query = await _repository.GetById(id);
-            return _mapper.Map<IEnumerable<UsuarioViewModel>>(query).FirstOrDefault();
+            return _mapper.Map<IEnumerable<PacienteViewModel>>(query).FirstOrDefault();
         }
 
-        public async Task<UsuarioViewModel> GetByLogin(string login)
+        public async Task<IEnumerable<UsuarioMedicoViewModel>> GetListByIdEspecialidade(Guid idEspecialidade)
+        {
+            var usuarios = await _repository.GetListByIdEspecialidade(idEspecialidade);
+            return _mapper.Map<IEnumerable<UsuarioMedicoViewModel>>(usuarios);
+        }
+
+        public async Task<PacienteViewModel> GetByLogin(string login)
         {
             var query = await _repository.GetByLogin(login);
-            return _mapper.Map<IEnumerable<UsuarioViewModel>>(query).FirstOrDefault();
+            return _mapper.Map<IEnumerable<PacienteViewModel>>(query).FirstOrDefault();
         }
 
-        public async Task<IEnumerable<UsuarioViewModel>> GetByFiltro(ConsultarPorFiltroViewModel filtro)
+        public async Task<IEnumerable<PacienteViewModel>> GetByFiltro(ConsultarPorFiltroViewModel filtro)
         {
             var usuarios = await _repository.GetByFiltro(filtro.Nome, filtro.CPF, filtro.Email);
-            return _mapper.ProjectTo<UsuarioViewModel>(usuarios.AsQueryable());
+            return _mapper.ProjectTo<PacienteViewModel>(usuarios.AsQueryable());
         }
 
         public async Task Create(UsuarioDTO usuarioDTO)
@@ -63,7 +69,7 @@ namespace HealthMed.Application.AppServices.Administracao
             await _bus.SendCommand(command);
         }
 
-        public async Task Update(UsuarioViewModel model)
+        public async Task Update(PacienteViewModel model)
         {
             var command = _mapper.Map<UsuarioUpdateCommand>(model);
             await _bus.SendCommand(command);

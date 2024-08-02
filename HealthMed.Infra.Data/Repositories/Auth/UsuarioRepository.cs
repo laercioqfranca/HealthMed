@@ -50,6 +50,17 @@ namespace HealthMed.Infra.Data.Repositories.Auth
             return usuario;
         }
 
+        public async Task<List<Usuario>> GetListByIdEspecialidade(Guid idEspecialidade)
+        {
+            List<Usuario> usuarios = await _context.Set<Usuario>()
+                .Include(u => u.Especialidade)
+                .Where(
+                    u => (!u.Excluido) &&
+                    (u.IdEspecialidade == idEspecialidade)
+            ).AsNoTracking().ToListAsync();
+            return usuarios;
+        }
+
         public async Task<IEnumerable<Usuario>> GetByFiltro(string nome, string cpf, string email)
         {
             var usuarios =  await _context.Set<Usuario>()
