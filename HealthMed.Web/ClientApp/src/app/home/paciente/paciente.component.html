@@ -30,11 +30,8 @@
 
   </div>
 
-  
   <div *ngIf="idMedico.valid">
-
     <div>Selecione um horário disponível</div>
-
     <div class="row mb-2" *ngFor="let agenda of agendaDoMedico.agenda">
 
       <div class="col-2 align-content-center">
@@ -79,7 +76,7 @@
       <td>{{agenda.horarioConsulta}}</td>
       <td>{{agenda.nomeMedico}}</td>
       <td>{{agenda.especialidadeMedica}}</td>
-      <td class="text-center"><button  (click)="modalCancelar(agenda.idAgendaMedica)" class="btn fa fa-close text-danger cancelamento"></button></td>
+      <td class="text-center"><button  (click)="modalCancelar(agenda.idAgendaMedica)" class="btn fa fa-close text-danger btn-remove"></button></td>
     </tr>
   </tbody>
 </table>

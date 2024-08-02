@@ -7,7 +7,6 @@ import { NotificationService } from 'src/app/core/services/root/notification.ser
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { AuthService } from 'src/app/services/root/auth.service';
 import Swal from 'sweetalert2';
-// import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-paciente',
@@ -109,7 +108,6 @@ export class PacienteComponent implements OnInit {
       next: res => {
         if (res.success) {
           this.agendaDoPaciente = res.data;
-          console.log(this.agendaDoPaciente)
         }
       }, error: e => {
         this.notificationService.showError("Ocorreu algum erro ao carregar as especialidades!", "Ops...");
