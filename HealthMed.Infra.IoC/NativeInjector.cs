@@ -31,6 +31,9 @@ using HealthMed.Domain.Interfaces.Infra.Data.Repositories.Paciente;
 using HealthMed.Domain.Interfaces.Infra.Data.Repositories.Medico;
 using HealthMed.Infra.Data.Repositories.Medico;
 using HealthMed.Infra.Data.Repositories.Paciente;
+using HealthMed.Domain.Interfaces.Infra.Services;
+using HealthMed.Domain.Services;
+using HealthMed.Infra.Services;
 
 namespace HealthMed.Infra.IoC
 {
@@ -78,6 +81,8 @@ namespace HealthMed.Infra.IoC
             services.AddScoped<IAgendaMedicaRepository, AgendaMedicaRepository>();
             services.AddScoped<IAgendaPacienteRepository, AgendaPacienteRepository>();
             // Infra - Service
+            services.AddScoped<IEmailSenderService, EmailSenderService>();
+            services.AddTransient<IEmailSender, EmailSender>();
         }
     }
 }

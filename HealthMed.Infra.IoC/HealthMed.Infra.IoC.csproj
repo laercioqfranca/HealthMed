@@ -12,6 +12,7 @@
     <ProjectReference Include="..\HealthMed.Domain\HealthMed.Domain.csproj" />
     <ProjectReference Include="..\HealthMed.Infra.Bus\HealthMed.Infra.Bus.csproj" />
     <ProjectReference Include="..\HealthMed.Infra.Data\HealthMed.Infra.Data.csproj" />
+    <ProjectReference Include="..\HealthMed.Infra.Services\HealthMed.Infra.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>
