@@ -4,16 +4,20 @@ using HealthMed.Domain.Services;
 using MimeKit;
 using MailKit.Security;
 using MailKit.Net.Smtp;
+using Microsoft.Extensions.Configuration;
 
 namespace HealthMed.Infra.Services
 {
 
     public class EmailSender : IEmailSender
     {
+        private readonly IConfiguration _config;
         EmailConfig _email;
 
-        public EmailSender(IOptions<EmailConfig> email)
+        public EmailSender(IOptions<EmailConfig> email,
+            IConfiguration configuration)
         {
+            _config = configuration;
             _email = email.Value;
         }
 
@@ -34,6 +38,10 @@ namespace HealthMed.Infra.Services
         {
             try
             {
+                string? smtp = _config.GetSection("Smtp").Value;
+                string? smtpUserName = _config.GetSection("SmtpUserName").Value;
+                string? smtpPassword = _config.GetSection("SmtpPassword").Value;
+
                 var message = new MimeMessage();
                 message.From.Add(new MailboxAddress("Health Med", "agendamento@healthmed.com"));
                 message.To.Add(new MailboxAddress("", email));
@@ -42,8 +50,8 @@ namespace HealthMed.Infra.Services
 
                 using (var client = new SmtpClient())
                 {
-                    client.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
-                    client.Authenticate("laercioqfranca93@gmail.com", "dtei lucz crnd tswb");
+                    client.Connect(smtp, 587, SecureSocketOptions.StartTls);
+                    client.Authenticate(smtpUserName, smtpPassword);
                     client.Send(message);
                     client.Disconnect(true);
                 }
