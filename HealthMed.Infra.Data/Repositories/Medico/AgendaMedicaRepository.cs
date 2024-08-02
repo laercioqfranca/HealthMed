@@ -39,5 +39,15 @@ namespace HealthMed.Infra.Data.Repositories.Medico
             ).AsNoTracking().SingleOrDefaultAsync();
 
         }
+
+        public async Task<IEnumerable<AgendaMedica>> GetListByIdMedico(Guid idMedico)
+        {
+            return await DbSet
+                .Include(x => x.Horario)
+                .Include(x => x.Medico)
+            .Where(x => x.IdMedico == idMedico)
+            .AsNoTracking().ToListAsync();
+
+        }
     }
 }
