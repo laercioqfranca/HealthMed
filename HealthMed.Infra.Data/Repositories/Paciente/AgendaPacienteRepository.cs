@@ -31,13 +31,12 @@ namespace HealthMed.Infra.Data.Repositories.Paciente
         {
             var query = await DbSet
                 .Include(x => x.AgendaMedica)
-                .ThenInclude(x => x.Medico)
-
+                    .ThenInclude(x => x.Medico)
+                        .ThenInclude(x => x.Especialidade)
                 .Include(x => x.AgendaMedica)
-                .ThenInclude(x => x.Horario)
-
+                    .ThenInclude(x => x.Horario)
                 .Include(x => x.Paciente)
-            .AsNoTracking().ToListAsync();
+            .OrderBy(x => x.AgendaMedica.Data).AsNoTracking().ToListAsync();
 
             return query;
         }

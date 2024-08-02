@@ -29,6 +29,7 @@ namespace HealthMed.Application.AutoMapper
 
             CreateMap<AgendaPaciente, AgendaPacienteViewModel>()
                 .ForMember(dest => dest.NomeMedico, opt => opt.MapFrom(opt => opt.AgendaMedica.Medico.Nome))
+                .ForMember(dest => dest.EspecialidadeMedica, opt => opt.MapFrom(opt => opt.AgendaMedica.Medico.Especialidade.Descricao))
                 .ForMember(dest => dest.DataConsulta, opt => opt.MapFrom(opt => opt.AgendaMedica.Data.ToString("dd/MM/yyyy")))
                 .ForMember(dest => dest.HorarioConsulta, opt => opt.MapFrom(opt => opt.AgendaMedica.Horario.Descricao));
 

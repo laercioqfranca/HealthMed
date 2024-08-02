@@ -5,7 +5,7 @@
   </div>
 </div>
 
-<form [formGroup]="agendarConsultaForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="agendarConsultaForm">
   
   <div class="row align-items-center py-3">
 
@@ -25,7 +25,7 @@
 
     <div class="col pt-4">
       <button class="btn btn-warning me-2" (click)="limpar()"><i class="fa fa-sign-in"></i> Limpar</button>
-      <button type="submit" [disabled]="agendarConsultaForm.invalid" class="btn btn-success"><i class="fa fa-sign-in"></i>Agendar Consulta</button>
+      <button [disabled]="agendarConsultaForm.invalid" class="btn btn-success" (click)="modalCadastrar()"><i class="fa fa-sign-in"></i>Agendar Consulta</button>
     </div>
 
   </div>
@@ -63,13 +63,14 @@
   </div>
 </div>
 
-<table class="table">
+<table class="table" *ngIf="agendaDoPaciente.length > 0">
   <thead>
     <tr>
-      <th scope="col">Data</th>
-      <th scope="col">Hora</th>
-      <th scope="col">Médico</th>
-      <th scope="col">Cancelar Consulta</th>
+      <th class="col-3">Data</th>
+      <th class="col-1">Hora</th>
+      <th class="col-3">Médico</th>
+      <th class="col-3">Especialidade</th>
+      <th class="col-2 text-center">Cancelar Consulta</th>
     </tr>
   </thead>
   <tbody>
@@ -77,7 +78,8 @@
       <td>{{ agenda.dataConsulta | date : 'dd/MM/yyyy'}}</td>
       <td>{{agenda.horarioConsulta}}</td>
       <td>{{agenda.nomeMedico}}</td>
-      <td><button  (click)="modalCancelar(agenda.idAgendaMedica)" class="btn fa fa-close text-danger cancelamento"></button></td>
+      <td>{{agenda.especialidadeMedica}}</td>
+      <td class="text-center"><button  (click)="modalCancelar(agenda.idAgendaMedica)" class="btn fa fa-close text-danger cancelamento"></button></td>
     </tr>
   </tbody>
 </table>

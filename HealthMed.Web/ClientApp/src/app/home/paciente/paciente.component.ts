@@ -63,6 +63,7 @@ export class PacienteComponent implements OnInit {
             this.notificationService.showSuccess("Consulta agendada com sucesso!", "");
             this.limpar();
             this.agendaDoMedico = [];
+            this.carregarAgendaPaciente();
           }
         }, error: e => {
           this.notificationService.showError("Ocorreu algum erro!", "");
@@ -145,13 +146,10 @@ export class PacienteComponent implements OnInit {
   }
 
   cancelarConsulta(idAgenda:any){
-    // this.notificationService.showSuccess("Consulta cancelada com sucesso!");
-    // const agenda = this.agendaDoPaciente.agenda.filter((agenda:any) => agenda.horarios[0].idAgenda !== idAgenda)
-    // this.agendaDoPaciente.agenda = agenda;
-
     this.agendaPacienteService.delete(idAgenda).subscribe({
       next: res => {
         this.modalSucesso();
+        this.carregarAgendaPaciente();
       },error: e => {
         this.notificationService.showError("Ocorreu algum erro ao cancelar a consulta!", "Ops...");
       }
@@ -175,6 +173,26 @@ export class PacienteComponent implements OnInit {
     }).then(e => {
       if(e.isConfirmed){
         this.cancelarConsulta(idAgenda);
+      }
+      Swal.close();
+    })
+  }
+  modalCadastrar(){
+    Swal.fire({
+      html: `
+        <br>  
+        <h3 class='fw-bold'>Atenção!</h3>
+        <br>
+        <p class="mt-3 fw-bold">Confirmar agendamento?</p>
+      `,
+      showConfirmButton: true,
+      confirmButtonText: "SIM",
+      confirmButtonColor: '#049D01',
+      showDenyButton: true,
+      denyButtonText: 'NÃO'
+    }).then(e => {
+      if(e.isConfirmed){
+        this.onSubmit();
       }
       Swal.close();
     })

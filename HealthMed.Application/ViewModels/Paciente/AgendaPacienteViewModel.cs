@@ -16,6 +16,7 @@ namespace HealthMed.Application.ViewModels.Paciente
         public string NomeMedico { get; set; }
         public DateTime DataConsulta { get; set; }
         public string HorarioConsulta { get; set; } 
+        public string EspecialidadeMedica { get; set; }
        
     }
 }

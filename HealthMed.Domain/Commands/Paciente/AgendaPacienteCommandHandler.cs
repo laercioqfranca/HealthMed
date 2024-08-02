@@ -9,6 +9,8 @@ using HealthMed.Domain.Interfaces.Infra.Data.Repositories.Medico;
 using HealthMed.Domain.Models.Medico;
 using HealthMed.Domain.Models.Paciente;
 using HealthMed.Domain.Interfaces.Infra.Services;
+using HealthMed.Domain.Models.Autenticacao;
+using HealthMed.Domain.Interfaces.Infra.Data.Repositories.Auth;
 
 namespace HealthMed.Domain.Commands.Paciente
 {
@@ -20,8 +22,11 @@ namespace HealthMed.Domain.Commands.Paciente
         private readonly IAgendaPacienteRepository _repository;
         private readonly IAgendaMedicaRepository _repositoryAM;
         private readonly IEmailSenderService _emailsender;
+        private readonly IUsuarioRepository _usuarioRepository;
 
-        public AgendaPacienteCommandHandler(IAgendaPacienteRepository repository,
+        public AgendaPacienteCommandHandler(
+            IUsuarioRepository usuarioRepository,
+            IAgendaPacienteRepository repository,
             IAgendaMedicaRepository repositoryAM,
             IEmailSenderService emailSender,
             IMediatorHandler bus,
@@ -34,6 +39,7 @@ namespace HealthMed.Domain.Commands.Paciente
             _repository = repository;
             _repositoryAM = repositoryAM;
             _emailsender = emailSender;
+            _usuarioRepository = usuarioRepository;
         }
 
         public async Task<Unit> Handle(AgendaPacienteCreateCommand request, CancellationToken cancellationToken)
@@ -47,6 +53,8 @@ namespace HealthMed.Domain.Commands.Paciente
             else
             {
                 AgendaMedica? agendaMedica = await _repositoryAM.GetById(request.IdAgendaMedica, null);
+                Usuario paciente = await _usuarioRepository.GetById(request.IdPaciente);
+
                 if (agendaMedica?.Agendado == false)
                 {
                     AgendaPaciente agendaPaciente = new AgendaPaciente(request.IdAgendaMedica, request.IdPaciente);
@@ -55,7 +63,7 @@ namespace HealthMed.Domain.Commands.Paciente
                     _repositoryAM.Update(agendaMedica);
 
                     emailBody = string.Format("<p>Olá, Dr. <b>{0}</b>!</p><p>Você tem uma nova consulta marcada! </p><p>Paciente: <b>{1}</b>.</p><p>Data e horário: <b>{2}</b> às <b>{3}</b>.</p>",
-                        agendaMedica.Medico.Nome, agendaPaciente.Paciente.Nome, agendaMedica.Data.ToString("dd/MM/yyyy"), agendaMedica.Horario.Descricao);
+                        agendaMedica.Medico.Nome, paciente.Nome, agendaMedica.Data.ToString("dd/MM/yyyy"), agendaMedica.Horario.Descricao);
                     emailMedico = agendaMedica.Medico.Email;
                 }
                 else
