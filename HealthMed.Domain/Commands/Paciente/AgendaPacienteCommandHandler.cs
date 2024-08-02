@@ -8,6 +8,7 @@ using HealthMed.Domain.Interfaces.Infra.Data.Repositories.Paciente;
 using HealthMed.Domain.Interfaces.Infra.Data.Repositories.Medico;
 using HealthMed.Domain.Models.Medico;
 using HealthMed.Domain.Models.Paciente;
+using HealthMed.Domain.Interfaces.Infra.Services;
 
 namespace HealthMed.Domain.Commands.Paciente
 {
@@ -18,9 +19,11 @@ namespace HealthMed.Domain.Commands.Paciente
         private readonly DomainNotificationHandler _notifications;
         private readonly IAgendaPacienteRepository _repository;
         private readonly IAgendaMedicaRepository _repositoryAM;
+        private readonly IEmailSenderService _emailsender;
 
         public AgendaPacienteCommandHandler(IAgendaPacienteRepository repository,
             IAgendaMedicaRepository repositoryAM,
+            IEmailSenderService emailSender,
             IMediatorHandler bus,
             IUnitOfWork uow,
             INotificationHandler<DomainNotification> notifications)
@@ -30,11 +33,14 @@ namespace HealthMed.Domain.Commands.Paciente
             _notifications = (DomainNotificationHandler)notifications;
             _repository = repository;
             _repositoryAM = repositoryAM;
+            _emailsender = emailSender;
         }
 
         public async Task<Unit> Handle(AgendaPacienteCreateCommand request, CancellationToken cancellationToken)
         {
             LogHistorico log = new LogHistorico();
+            string emailBody = string.Empty;
+            string emailMedico = string.Empty;
 
             if (!request.IsValid())
                 NotifyValidationErrors(request);
@@ -47,6 +53,10 @@ namespace HealthMed.Domain.Commands.Paciente
                     _repository.Add(agendaPaciente);
                     agendaMedica.setAgendado(true);
                     _repositoryAM.Update(agendaMedica);
+
+                    emailBody = string.Format("<p>Olá, Dr. <b>{0}</b>!</p><p>Você tem uma nova consulta marcada! </p><p>Paciente: <b>{1}</b>.</p><p>Data e horário: <b>{2}</b> às <b>{3}</b>.</p>",
+                        agendaMedica.Medico.Nome, agendaPaciente.Paciente.Nome, agendaMedica.Data.ToString("dd/MM/yyyy"), agendaMedica.Horario.Descricao);
+                    emailMedico = agendaMedica.Medico.Email;
                 }
                 else
                 {
@@ -67,7 +77,22 @@ namespace HealthMed.Domain.Commands.Paciente
             }
 
             if (_notifications.HasNotifications()) await Commit(true);
-            if (!_notifications.HasNotifications()) await Commit();
+            if (!_notifications.HasNotifications())
+            {
+                await Commit();
+
+                if (!string.IsNullOrEmpty(emailBody) && !string.IsNullOrEmpty(emailMedico))
+                {
+                    try
+                    {
+                        await _emailsender.EnviarEmail("Health&Med - Nova consulta agendada", emailBody, emailMedico);
+                    }
+                    catch (Exception ex)
+                    {
+                        await _bus.RaiseEvent(new DomainNotification(request.MessageType, "Servidor Indisponível"));
+                    }
+                }
+            };
 
             return Unit.Value;
         }
