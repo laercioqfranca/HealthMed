@@ -15,4 +15,11 @@ export class AgendaPacienteService {
     );
   }
 
+  delete(idAgendaPaciente: any): Observable<any> {
+    idAgendaPaciente = '9D814E37-80CD-4524-5B2C-08DCB29F8DBE'
+    return this.http.delete(`v1/AgendaPaciente/Delete/${idAgendaPaciente}`).pipe(
+      map((res: any) => { return res; })
+    );
+  }
+
 }

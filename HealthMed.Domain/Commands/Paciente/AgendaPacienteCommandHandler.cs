@@ -98,7 +98,7 @@ namespace HealthMed.Domain.Commands.Paciente
 
             if (notificationsString == null)
             {
-                log = new LogHistorico(request.IdPaciente, request.IdAgendaMedica, EnumTipoLog.DELETE, "AgendaPaciente", $"Agenda Paciente deleted: {request.IdAgendaMedica}");
+                log = new LogHistorico(request.UsuarioRequerenteId, request.IdAgendaMedica, EnumTipoLog.DELETE, "AgendaPaciente", $"Agenda Paciente deleted: {request.IdAgendaMedica}");
             }
             else
             {

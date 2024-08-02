@@ -19,3 +19,11 @@
     color: #f82424;
     background-color: #d3cfc4;
 }
+
+.cancelamento{
+    cursor: pointer;
+}
+
+.cancelamento:hover{
+    background-color: #eae2e1;
+}

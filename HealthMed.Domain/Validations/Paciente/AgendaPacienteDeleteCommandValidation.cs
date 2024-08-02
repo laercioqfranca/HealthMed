@@ -15,8 +15,6 @@ namespace HealthMed.Domain.Validations.Paciente
             RuleFor(x => x.IdAgendaMedica)
                 .NotNull().WithMessage("O IdAgendaMedica é obrigatório!");
 
-            RuleFor(x => x.IdPaciente)
-               .NotNull().WithMessage("O IdPaciente é obrigatório!");
         }
     }
 }

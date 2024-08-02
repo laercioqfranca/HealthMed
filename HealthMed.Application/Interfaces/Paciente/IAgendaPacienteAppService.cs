@@ -14,6 +14,6 @@ namespace HealthMed.Application.Interfaces.Paciente
     public interface IAgendaPacienteAppService
     {
         Task Create(AgendaPacienteDTO agendaPacienteDTO);
-        Task Delete(AgendaPacienteDTO agendaPacienteDTO);
+        Task Delete(Guid idAgendaPaciente);
     }
 }

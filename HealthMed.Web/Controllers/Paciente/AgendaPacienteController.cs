@@ -51,20 +51,20 @@ namespace HealthMed.Web.Controllers.Paciente
 
         #region DELETE
 
-        [Route("Delete")]
+        [Route("Delete/{idAgendaPaciente}")]
         [HttpDelete]
         [Authorize]
-        public async Task<IActionResult> Delete([FromBody] AgendaPacienteDTO AgendaPacienteDTO)
+        public async Task<IActionResult> Delete(Guid idAgendaPaciente)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
                     NotifyModelStateErrors();
-                    return Response(AgendaPacienteDTO);
+                    return Response();
                 }
 
-                await _appService.Delete(AgendaPacienteDTO);
+                await _appService.Delete(idAgendaPaciente);
 
                 return Response();
             }
