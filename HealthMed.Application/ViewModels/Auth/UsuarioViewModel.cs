@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HealthMed.Application.ViewModels.Auth
 {
-    public class UsuarioViewModel
+    public class PacienteViewModel
     {
         public Guid? Id { get; set; }
         public string Nome { get; set; }
@@ -19,7 +19,7 @@ namespace HealthMed.Application.ViewModels.Auth
 
         public bool Excluido { get; set; }
 
-        public UsuarioViewModel() { }
+        public PacienteViewModel() { }
 
         public Guid? IdPerfil { get; set; }
         public PerfilUsuarioViewModel Perfil { get; set; }

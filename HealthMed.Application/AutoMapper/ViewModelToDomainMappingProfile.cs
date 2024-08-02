@@ -17,7 +17,7 @@ namespace HealthMed.Application.AutoMapper
 
             CreateMap<UsuarioDTO, UsuarioCreateCommand>();
 
-            CreateMap<UsuarioViewModel, UsuarioUpdateCommand>();
+            CreateMap<PacienteViewModel, UsuarioUpdateCommand>();
 
             CreateMap<AgendaMedicaDTO, AgendaMedicaCreateCommand>();
             CreateMap<AgendaDTO, AgendaCreateCommand>();

@@ -7,6 +7,8 @@ using HealthMed.Application.Interfaces.Auth;
 using HealthMed.Application.Interfaces.Paciente;
 using HealthMed.Application.Interfaces.TabeleDominio;
 using HealthMed.Application.ViewModels;
+using HealthMed.Application.ViewModels.Auth;
+using HealthMed.Application.ViewModels.Paciente;
 using HealthMed.Application.ViewModels.TabelaDominio;
 using HealthMed.Core.Interfaces;
 using HealthMed.Domain.Commands.Administracao;
@@ -32,6 +34,12 @@ namespace HealthMed.Application.AppServices.Paciente
             _bus = bus;
             _httpContextAccessor = httpContextAccessor;
             _repository = repository;
+        }
+
+        public async Task<IEnumerable<AgendaPacienteViewModel>> GetAll()
+        {
+            var usuarios = await _repository.GetAll();
+            return _mapper.Map<IEnumerable<AgendaPacienteViewModel>>(usuarios);
         }
 
         public async Task Create(AgendaPacienteDTO agendaPacienteDTO)

@@ -33,16 +33,16 @@ namespace HealthMed.Application.AppServices.Autenticacao
             _httpContextAcessor = httpContextAccessor;
         }
 
-        public async Task<UsuarioViewModel> Autenticar(LoginViewModel loginViewModel)
+        public async Task<PacienteViewModel> Autenticar(LoginViewModel loginViewModel)
         {
-            UsuarioViewModel userViewModel = null;
+            PacienteViewModel userViewModel = null;
             var command = _mapper.Map<AutenticarCommand>(loginViewModel);
             await _bus.SendCommand(command);
             if (!_notifications.HasNotifications())
             {
                 var usuario = (await _repository.GetByLogin(loginViewModel.Login)).FirstOrDefault();
 
-                userViewModel = _mapper.Map<UsuarioViewModel>(usuario);
+                userViewModel = _mapper.Map<PacienteViewModel>(usuario);
 
             }
             return userViewModel;

@@ -49,7 +49,7 @@ export class PacienteComponent implements OnInit {
   ngOnInit() {
     this.iniciarForm();
     this.carregarComboEspecialidade();
-    this.obterAgendaPaciente(this.idUsuario);
+    this.carregarAgendaPaciente();
   }
 
   onSubmit() {
@@ -103,6 +103,19 @@ export class PacienteComponent implements OnInit {
     });
   }
 
+  carregarAgendaPaciente() {
+    this.agendaPacienteService.getAll().subscribe({
+      next: res => {
+        if (res.success) {
+          this.agendaDoPaciente = res.data;
+          console.log(this.agendaDoPaciente)
+        }
+      }, error: e => {
+        this.notificationService.showError("Ocorreu algum erro ao carregar as especialidades!", "Ops...");
+      }
+    });
+  }
+
   obterMedicoPorEspecialidade(idEspecialidade: any) {
     if (idEspecialidade) {
       this.usuarioService.getListByIdEspecialidade(idEspecialidade).subscribe({
@@ -129,63 +142,6 @@ export class PacienteComponent implements OnInit {
           },
         });
     }
-  }
-
-  obterAgendaPaciente(idPaciente: any) {
-    if (idPaciente) {
-      this.agendaDoPaciente = {
-        "idPaciente": "ab61a231-6fb1-4c3b-86a5-e3350b6dfe49",
-        "agenda": [
-          {
-            "data": "10/08/2024",
-            "horarios": [
-              {
-                "id": "520dc2c8-a27b-4b4c-8eaa-83cb43179479",
-                "idAgenda": "9e3f496b-6b45-4667-d068-08dcb2a022c7",
-                "horario": "07:00",
-                "agendado": true,
-                "medico":"Zeroberto"
-              }
-            ]
-          },
-          {
-            "data": "20/09/2024",
-            "horarios": [
-              {
-                "id": "520dc2c8-a27b-4b4c-8eaa-83cb43179479",
-                "idAgenda": "82E06512-B823-46F8-8B53-45E6DB4A9F88",
-                "horario": "10:30",
-                "agendado": true,
-                "medico":"Umberto"
-              }
-            ]
-          },
-          {
-            "data": "12/11/2024",
-            "horarios": [
-              {
-                "id": "C6626BD9-2BF0-40F5-8964-F1A37C397C57",
-                "idAgenda": "8f85d408-b4ba-40db-b8e0-08dcb29e25cd",
-                "horario": "11:30",
-                "agendado": true,
-                "medico":"Doisberto"
-              }
-            ]
-          }
-        ]
-      }
-
-    //   this.agendaPacienteService.getByIdPaciente(idPaciente)
-    //     .subscribe({
-    //       next: (res) => {
-    //         this.agendaDoPaciente = res.data;
-    //       },
-    //       error: (e) => {
-    //         this.notificationService.showError("Ocorreu algum erro ao carregar a agenda do paciente!", "Ops...");
-    //       },
-    //     });
-    }
-
   }
 
   cancelarConsulta(idAgenda:any){

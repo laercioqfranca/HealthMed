@@ -5,6 +5,7 @@ using HealthMed.Core.Notifications;
 using HealthMed.Application.DTO;
 using Microsoft.AspNetCore.Authorization;
 using HealthMed.Application.Interfaces.Paciente;
+using HealthMed.Application.ViewModels.Paciente;
 
 namespace HealthMed.Web.Controllers.Paciente
 {
@@ -20,6 +21,30 @@ namespace HealthMed.Web.Controllers.Paciente
             _appService = appService;
         }
 
+        #region GET
+        [Route("GetAll")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    NotifyModelStateErrors();
+                    return Response();
+                }
+
+                var response = await _appService.GetAll();
+
+                return Response(response);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+        #endregion
 
         #region POST
 

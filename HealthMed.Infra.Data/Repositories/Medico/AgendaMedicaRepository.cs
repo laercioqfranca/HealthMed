@@ -25,7 +25,6 @@ namespace HealthMed.Infra.Data.Repositories.Medico
             (idHorario == null || x.IdHorario == idHorario) &&
             (idMedico == null || x.IdMedico == idMedico)
             ).AsNoTracking().ToListAsync();
-
         }
 
         public async Task<AgendaMedica?> GetById(Guid id, bool? agendado)

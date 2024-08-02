@@ -11,13 +11,13 @@ namespace HealthMed.Application.Interfaces.Administracao
 {
     public interface IUsuarioAppService : IDisposable
     {
-        Task<UsuarioViewModel> GetById(Guid id);
-        Task<UsuarioViewModel> GetByLogin(string login);
-        Task<IEnumerable<UsuarioViewModel>> GetByFiltro(ConsultarPorFiltroViewModel filtro);
-        Task<IEnumerable<UsuarioViewModel>> GetAll();
+        Task<PacienteViewModel> GetById(Guid id);
+        Task<PacienteViewModel> GetByLogin(string login);
+        Task<IEnumerable<PacienteViewModel>> GetByFiltro(ConsultarPorFiltroViewModel filtro);
+        Task<IEnumerable<PacienteViewModel>> GetAll();
         Task<IEnumerable<UsuarioMedicoViewModel>> GetListByIdEspecialidade(Guid idEspecialidade);
         Task Create(UsuarioDTO usuarioDTO);
-        Task Update(UsuarioViewModel model);
+        Task Update(PacienteViewModel model);
         Task Delete(Guid id);
 
     }
