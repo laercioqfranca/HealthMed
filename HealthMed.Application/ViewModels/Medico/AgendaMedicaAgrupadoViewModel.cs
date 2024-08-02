@@ -20,6 +20,9 @@ namespace HealthMed.Application.ViewModels.Medico
 
     public class HorariosViewModel()
     {
+        public Guid IdAgenda { get; set; }
+        public Guid Id { get; set; }
         public string Horario { get; set; }
+        public bool Agendado { get; set; }
     }
 }

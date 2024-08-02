@@ -13,3 +13,9 @@
 .selecionado {
     background-color: #d3d3d3; /* Escolha a cor que desejar */
 }
+
+.indisponivel{
+    cursor: not-allowed;
+    color: #f82424;
+    background-color: #d3cfc4;
+}

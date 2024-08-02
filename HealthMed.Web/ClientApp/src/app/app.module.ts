@@ -26,6 +26,7 @@ function getDatepickerConfig(): BsDatepickerConfig {
     dateFormat: 'DD/MM/YYYY',
     containerClass: 'theme-red',
     showWeekNumbers: false,
+    
   });
 }
 

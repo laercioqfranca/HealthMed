@@ -43,11 +43,14 @@ namespace HealthMed.Application.AppServices.Medico
                         Data = x.Key.ToString("dd/MM/yyyy"),
                         Horarios = x.SelectMany(y => new List<HorariosViewModel> {
                          new HorariosViewModel {
-                         Horario = y.Horario.Descricao
+                             Id = y.IdHorario,
+                             IdAgenda = y.Id,
+                             Horario = y.Horario.Descricao,
+                             Agendado = y.Agendado
                          }
-                        }).ToList()
+                        }).OrderBy(x => x.Horario).ToList()
                     }
-                }).ToList()
+                }).OrderBy(x => x.Data).ToList()
 
             };
             return result;

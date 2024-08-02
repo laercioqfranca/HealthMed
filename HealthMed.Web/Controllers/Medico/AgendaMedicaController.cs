@@ -41,7 +41,7 @@ namespace HealthMed.Web.Controllers.Medico
         }
 
         [HttpGet]
-        [Route("GetListByIdMedico")]
+        [Route("GetListByIdMedico/{idMedico}")]
         [Authorize]
         public async Task<IActionResult> GetListByIdMedico(Guid idMedico)
         {

@@ -17,24 +17,7 @@ export class MedicoComponent implements OnInit {
   idMedico!:any;
   horarioList!:any;
 
-  agendaList: any = [{
-    data: '01/06/2024',
-    hora: ['09:00', '10:00', '11:00', '14:00', '15:00']
-  },
-  {
-    data: '05/06/2024',
-    hora: ['08:00', '09:00', '10:00', '13:00', '16:00', '18:00']
-  },
-  {
-    data: '09/08/2024',
-    hora: ['08:00', '09:00', '10:00', '13:00']
-  },
-  {
-    data: '10/08/2024',
-    hora: ['08:00', '09:00', '10:00', '13:00', '16:00']
-  }
-];
-
+  agendaMedica: any = [];
 
   mostrarCriarEvento: boolean = true;
 
@@ -56,7 +39,7 @@ export class MedicoComponent implements OnInit {
   ngOnInit() {
     this.iniciarForm();
     this.listarHorarios();
-    // this.listarAgendaPorFiltro();
+    this.listarAgendaPorMedico();
   }
     
   iniciarForm(){
@@ -72,8 +55,14 @@ export class MedicoComponent implements OnInit {
     this.content.clear();
     if(horarioSelecionado){
       horarioSelecionado.forEach((horario:any) => {
+
+        const data = new Date(dataSelecionada);
+        data.setHours(-3);
+        data.setMinutes(0);
+        data.setSeconds(0);
+
         const dataHorario = this.fb.group({
-          data: [dataSelecionada],
+          data: [data],
           idHorario: [horario.id]
         })
         this.content.push(dataHorario);
@@ -83,10 +72,8 @@ export class MedicoComponent implements OnInit {
 
   onSubmit(){
     if(this.agendaForm.valid){
-
       let model = this.agendaForm.getRawValue()
       this.cadastrarAgenda(model);
-
     }
   }
 
@@ -105,7 +92,7 @@ export class MedicoComponent implements OnInit {
 
   ordenarHorarioList(lista:any){
     return lista.sort(function(a:any, b:any){
-      if (a.propriedade < b.descricao) {
+      if (a.descricao < b.descricao) {
         return -1;
       }
       if (a.descricao > b.descricao) {
@@ -115,16 +102,11 @@ export class MedicoComponent implements OnInit {
     });
   }
 
-  listarAgendaPorFiltro(){
-
-    let model = {idMedico: this.idMedico}
-
-    this.agendaService.getByFilter(model)
+  listarAgendaPorMedico(){
+    this.agendaService.getByIdMedico(this.idMedico)
       .subscribe({
         next: (res) => {
-          const horarioList = res.data;
-          this.horarioList = this.ordenarHorarioList(horarioList);
-          console.log(this.horarioList)
+          this.agendaMedica = res.data;
         },
         error: (e) => {
           this.notificationService.showError("Ocorreu algum erro ao carregar os Horários!", "Ops...");
@@ -138,7 +120,7 @@ export class MedicoComponent implements OnInit {
         if (res?.success) {
           this.notificationService.showSuccess('Agenda cadastrada com sucesso!', '');
           this.agendaForm.reset();
-          // this.listarEventos();
+          this.listarAgendaPorMedico();
         }
       },
       error: (e) => {
@@ -231,6 +213,7 @@ export class MedicoComponent implements OnInit {
 
   limpar(){
     this.agendaForm.reset();
+    this.iniciarForm();
   }
 
 }

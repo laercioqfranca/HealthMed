@@ -20,7 +20,7 @@ export class AgendaMedicaService {
   }
 
   getByIdMedico(idMedico: any): Observable<any> {
-    return this.http.get(`v1/AgendaMedica/GetByIdMedico/${idMedico}`).pipe(
+    return this.http.get(`v1/AgendaMedica/GetListByIdMedico/${idMedico}`).pipe(
       map((res: any) => { return res; })
     );
   }
