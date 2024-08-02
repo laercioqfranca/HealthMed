@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AgendaMedicaService } from 'src/app/core/services/agenda-medica.service';
+import { AgendaPacienteService } from 'src/app/core/services/agenda-paciente.service';
 import { EspecialidadeService } from 'src/app/core/services/especialidade.service';
 import { NotificationService } from 'src/app/core/services/root/notification.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
@@ -33,7 +34,8 @@ export class PacienteComponent implements OnInit {
     private notificationService: NotificationService,
     private especialidadeService: EspecialidadeService,
     private usuarioService: UsuarioService,
-    private agendaService: AgendaMedicaService,
+    private agendaMedicaService: AgendaMedicaService,
+    private agendaPacienteService: AgendaPacienteService,
     private fb: FormBuilder,
     private authService: AuthService
   ) {
@@ -48,6 +50,22 @@ export class PacienteComponent implements OnInit {
 
   onSubmit() {
 
+    let model = this.agendarConsultaForm.value;
+
+    if(this.agendarConsultaForm.valid){
+      this.agendaPacienteService.create(model).subscribe({
+        next: res => {
+          if(res.success){
+            this.notificationService.showSuccess("Consulta agendada com sucesso!", "");
+            this.limpar();
+            this.agendaDoMedico = [];
+          }
+        },error: e => {
+          this.notificationService.showError("Ocorreu algum erro!", "");
+        }
+      })
+    }
+
   }
 
   iniciarForm() {
@@ -57,14 +75,12 @@ export class PacienteComponent implements OnInit {
     });
   }
 
-  selecionarHorario(idAgenda: any, idHora: any) {
-    this.idAgendaMedica?.setValue(idAgenda);
-    this.idPaciente?.setValue(this.idUsuario);
-
-    this.horarioSelecionado = { idAgenda, idHora };
-
-    console.log(this.agendarConsultaForm.value)
-
+  selecionarHorario(idAgenda: any, idHora: any, agendado:boolean) {
+    if(!agendado){
+      this.idAgendaMedica?.setValue(idAgenda);
+      this.idPaciente?.setValue(this.idUsuario);
+      this.horarioSelecionado = { idAgenda, idHora };
+    }
   }
 
   isHorarioSelecionado(agendaId: number, horaId: number): boolean {
@@ -89,7 +105,6 @@ export class PacienteComponent implements OnInit {
         next: res => {
           if (res.success) {
             this.medicoList = res.data;
-            console.log(this.medicoList)
           }
         }, error: e => {
           this.notificationService.showError("Ocorreu algum erro ao carregar o médico!", "Ops...");
@@ -100,11 +115,10 @@ export class PacienteComponent implements OnInit {
 
   obterAgendaMedica(idMedico: any) {
     if (idMedico) {
-      this.agendaService.getByIdMedico(idMedico)
+      this.agendaMedicaService.getByIdMedico(idMedico)
         .subscribe({
           next: (res) => {
             this.agendaDoMedico = res.data;
-            console.log(this.agendaDoMedico)
           },
           error: (e) => {
             this.notificationService.showError("Ocorreu algum erro ao carregar a agenda do médico!", "Ops...");
@@ -116,6 +130,7 @@ export class PacienteComponent implements OnInit {
   limpar() {
     this.agendarConsultaForm.reset();
     this.idEspecialidade.reset();
+    this.idMedico.reset();
   }
 
 }

@@ -47,9 +47,9 @@
       <div class="col">
         <ul class="list-group list-group-horizontal position-relative overflow-auto w-75">
           <li *ngFor="let hora of agenda.horarios" class="btn list-group-item" 
-          [class.selecionado]="isHorarioSelecionado(agenda.id, hora.id)"
+          [class.selecionado]="isHorarioSelecionado(hora.idAgenda, hora.id)"
           [ngClass]="hora.agendado? 'indisponivel':''"
-          (click)="selecionarHorario(agenda.id, hora.id)">{{hora.horario}}</li>
+          (click)="selecionarHorario(hora.idAgenda, hora.id, hora.agendado)">{{hora.horario}}</li>
         </ul>
       </div>
     </div>
