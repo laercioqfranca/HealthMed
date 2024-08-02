@@ -12,7 +12,11 @@ namespace HealthMed.Domain.Commands.Paciente
     public class AgendaPacienteDeleteCommand : Command
     {
         public Guid IdAgendaMedica { get; protected set; }
-        public Guid IdPaciente { get; protected set; }
+
+        public AgendaPacienteDeleteCommand(Guid idAgendaMedica)
+        {
+            IdAgendaMedica = idAgendaMedica;
+        }
 
         public override bool IsValid()
         {

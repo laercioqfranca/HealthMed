@@ -1,4 +1,4 @@
-
+<!-- AGENDAR CONSULTA -->
 <div class="row py-2">
   <div class="col titulo">
     Agendar Consulta
@@ -39,7 +39,7 @@
 
       <div class="col-2 align-content-center">
         <ul class="list-group list-group-horizontal position-relative">
-          <div class="list-group-item">{{agenda.data}}</div>
+          <li class="list-group-item">{{agenda.data}}</li>
           <li class="list-group-item"><i></i></li>
         </ul>
       </div>
@@ -54,11 +54,34 @@
       </div>
     </div>
   </div>
-
 </form>
 
+<!-- MINHAS CONSULTAS -->
 <div class="row mt-2 py-2">
   <div class="col titulo">
     Minhas Consultas
+  </div>
+</div>
+
+<div>
+
+  <div>Selecione um horário disponível</div>
+
+  <div class="row mb-2" *ngFor="let agenda of agendaDoPaciente.agenda">
+
+    <div class="col-2 align-content-center">
+      <ul class="list-group list-group-horizontal position-relative">
+        <li class="list-group-item">{{agenda.data}}</li>
+        <li class="list-group-item cancelamento" (click)="modalCancelar(agenda.horarios[0].idAgenda)"><i class="fa fa-close text-danger"></i></li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <ul class="list-group list-group-horizontal position-relative overflow-auto w-75">
+        <li *ngFor="let hora of agenda.horarios" class="btn list-group-item" 
+        [class.selecionado]="isHorarioSelecionado(hora.idAgenda, hora.id)"
+        (click)="selecionarHorario(hora.idAgenda, hora.id, hora.agendado)">{{hora.horario}}</li>
+      </ul>
+    </div>
   </div>
 </div>

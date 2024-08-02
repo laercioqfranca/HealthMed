@@ -37,13 +37,13 @@ namespace HealthMed.Application.AppServices.Paciente
         public async Task Create(AgendaPacienteDTO agendaPacienteDTO)
         {
             var command = _mapper.Map<AgendaPacienteCreateCommand>(agendaPacienteDTO);
-            //command.UsuarioRequerenteId = new Guid(_httpContextAccessor.HttpContext?.User.Identity.Name);
+            command.UsuarioRequerenteId = new Guid(_httpContextAccessor.HttpContext?.User.Identity.Name);
             await _bus.SendCommand(command);
         }
-        public async Task Delete(AgendaPacienteDTO agendaPacienteDTO)
+        public async Task Delete(Guid idAgendaMedica)
         {
-            var command = _mapper.Map<AgendaPacienteDeleteCommand>(agendaPacienteDTO);
-            //command.UsuarioRequerenteId = new Guid(_httpContextAccessor.HttpContext?.User.Identity.Name);
+            var command = new AgendaPacienteDeleteCommand(idAgendaMedica);
+            command.UsuarioRequerenteId = new Guid(_httpContextAccessor.HttpContext?.User.Identity.Name);
             await _bus.SendCommand(command);
         }
 
