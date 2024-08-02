@@ -17,7 +17,7 @@ export class MedicoComponent implements OnInit {
   idMedico!:any;
   horarioList!:any;
 
-  agendaList: any[] = [{
+  agendaList: any = [{
     data: '01/06/2024',
     hora: ['09:00', '10:00', '11:00', '14:00', '15:00']
   },
@@ -89,7 +89,6 @@ export class MedicoComponent implements OnInit {
 
     }
   }
-
 
   listarHorarios(){
     this.horarioService.getAll()

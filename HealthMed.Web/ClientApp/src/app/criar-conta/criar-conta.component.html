@@ -54,7 +54,7 @@
       <div class="row" *ngIf="this.tipoPerfil?.value == enumTipoPerfil.Medico">
         <mat-form-field class="col">
           <mat-label>Especialidade</mat-label>
-          <mat-select>
+          <mat-select formControlName="idEspecialidade">
               <mat-option *ngFor="let item of especialidadeList" [value]="item.id">{{item.descricao}}</mat-option>
           </mat-select>
           <mat-error *ngIf="this.idEspecialidade?.invalid">

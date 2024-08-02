@@ -19,6 +19,12 @@ export class AgendaMedicaService {
     ));
   }
 
+  getByIdMedico(idMedico: any): Observable<any> {
+    return this.http.get(`v1/AgendaMedica/GetByIdMedico/${idMedico}`).pipe(
+      map((res: any) => { return res; })
+    );
+  }
+
   create(model: AgendaMedicaModel): Observable<any> {
     return this.http.post('v1/AgendaMedica/Create', model).pipe(
       map((res: any) => {return res;})

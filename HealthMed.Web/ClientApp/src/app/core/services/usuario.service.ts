@@ -18,6 +18,12 @@ export class UsuarioService {
       ));
     }
 
+    getListByIdEspecialidade(idEspecialidade: any): Observable<any> {
+      return this.http.get(`v1/Usuario/GetListByIdEspecialidade/${idEspecialidade}`).pipe(
+        map((res: any) => { return res; })
+      );
+    }
+
     getById(id: string): Observable<any> {
       return this.http.get(`v1/Usuario/GetById/${id}`).pipe(
         map((res: any) => { return res; })

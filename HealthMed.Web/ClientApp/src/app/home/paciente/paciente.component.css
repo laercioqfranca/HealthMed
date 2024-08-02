@@ -9,3 +9,7 @@
 .btn-add:hover{
     background-color:  rgb(131, 0, 0);
 }
+
+.selecionado {
+    background-color: #d3d3d3; /* Escolha a cor que desejar */
+}

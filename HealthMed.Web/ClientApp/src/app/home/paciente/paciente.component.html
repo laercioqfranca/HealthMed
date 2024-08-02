@@ -1,32 +1,62 @@
 
 <div class="row py-2">
   <div class="col titulo">
-    Paciente
+    Agendar Consulta
   </div>
 </div>
 
-<div class="flex-container" *ngIf="listaMeusEventos.length > 0">
-  <div class="card" *ngFor="let item of listaMeusEventos">
-    <div><b>{{item.descricao}}</b></div>
-    <div>{{item.data}}</div>
-    <div>
-      <!-- <abbr title="Cancelar inscrição"><i class="fa fa-trash text-danger active" aria-hidden="true" (click)="deletar(item.id)"></i></abbr> -->
+<form [formGroup]="agendarConsultaForm" (ngSubmit)="onSubmit()">
+  
+  <div class="row align-items-center py-3">
+
+    <div class="col-4">
+      <label>Selecione a especialidade médica</label>
+      <ng-select [formControl]="idEspecialidade" (change)="obterMedicoPorEspecialidade($event)">
+          <ng-option *ngFor="let item of especialidadeList" [value]="item.id">{{item.descricao}}</ng-option>
+      </ng-select>
+    </div>
+
+    <div class="col-4" *ngIf="this.idEspecialidade?.valid">
+      <label>Selecione o médico</label>
+      <ng-select [formControl]="idMedico" (change)="obterAgendaMedica($event)">
+          <ng-option *ngFor="let item of medicoList" [value]="item.id">{{item.nome}}</ng-option>
+      </ng-select>
+    </div>
+
+    <div class="col pt-4">
+      <button class="btn btn-warning me-2" (click)="limpar()"><i class="fa fa-sign-in"></i> Limpar</button>
+      <button type="submit" [disabled]="agendarConsultaForm.invalid" class="btn btn-success"><i class="fa fa-sign-in"></i>Agendar Consulta</button>
+    </div>
+
+  </div>
+
+  
+  <div *ngIf="idMedico.valid">
+
+    <div>Selecione um horário disponível</div>
+
+    <div class="row mb-2" *ngFor="let agenda of agendaList">
+      <div class="col-2 card-data align-content-center">
+        <ul class="list-group list-group-horizontal position-relative">
+          <div class="list-group-item">{{agenda.data}}</div>
+          <li class="list-group-item"><i></i></li>
+        </ul>
+      </div>
+    
+      <div class="col">
+        <ul class="list-group list-group-horizontal position-relative overflow-auto w-75">
+          <li *ngFor="let hora of agenda.horas" class="btn list-group-item" 
+          [class.selecionado]="isHorarioSelecionado(agenda.id, hora.id)"
+          (click)="selecionarHorario(agenda.id, hora.id)">{{hora.descricao}}</li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="row py-2">
+</form>
+
+<div class="row mt-2 py-2">
   <div class="col titulo">
-    Novidades
-  </div>
-</div>
-
-<div class="flex-container">
-  <div class="row d-flex card" *ngFor="let item of listaEventos">
-    <div class="col"><b>{{item.descricao}}</b></div>
-    <div class="col">{{item.data}}</div>
-    <div class="col">
-      <!-- <abbr [title]="this.inscricaoExistente(item.id)? 'Inscrito' : 'Inscreva-se'"><i [ngClass]="this.inscricaoExistente(item.id)? 'fa-solid text-success fa-check mt-3 me-3 active' : 'fa-solid fa-plus mt-3 me-3 active btn-add'" (click)="inscrever(item.id)"></i></abbr> -->
-    </div>
+    Minhas Consultas
   </div>
 </div>
