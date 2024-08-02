@@ -5,7 +5,7 @@ using HealthMed.Core.Notifications;
 using HealthMed.Application.DTO;
 using HealthMed.Application.Interfaces.Medico;
 using Microsoft.AspNetCore.Authorization;
-using HealthMed.Application.ViewModels;
+using HealthMed.Application.ViewModels.Medico;
 
 namespace HealthMed.Web.Controllers.Medico
 {
@@ -31,6 +31,23 @@ namespace HealthMed.Web.Controllers.Medico
             try
             {
                 var result = await _appService.GetByFilter(filtro);
+                return Response(result);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+
+        }
+
+        [HttpGet]
+        [Route("GetListByIdMedico")]
+        [Authorize]
+        public async Task<IActionResult> GetListByIdMedico(Guid idMedico)
+        {
+            try
+            {
+                var result = await _appService.GetListByIdMedico(idMedico);
                 return Response(result);
             }
             catch (Exception ex)

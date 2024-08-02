@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HealthMed.Application.ViewModels
+namespace HealthMed.Application.ViewModels.Medico
 {
     public class AgendaMedicaFiltroViewModel
     {

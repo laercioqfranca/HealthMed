@@ -17,5 +17,8 @@
     <ProjectReference Include="..\HealthMed.Core\HealthMed.Core.csproj" />
     <ProjectReference Include="..\HealthMed.Domain\HealthMed.Domain.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModels\Paciente\" />
+  </ItemGroup>
 
 </Project>
