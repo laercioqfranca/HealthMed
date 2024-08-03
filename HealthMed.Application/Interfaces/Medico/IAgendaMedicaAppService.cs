@@ -8,5 +8,7 @@ namespace HealthMed.Application.Interfaces.Medico
         Task<IEnumerable<AgendaMedicaViewModel>> GetByFilter(AgendaMedicaFiltroViewModel filtro);
         Task<AgendaMedicaAgrupadoViewModel> GetListByIdMedico(Guid idMedico);
         Task Create(AgendaMedicaDTO agendaMedicaDTO);
+        Task DeletePorData(DateTime dataAgenda);
+        Task Delete(Guid idAgenda);
     }
 }

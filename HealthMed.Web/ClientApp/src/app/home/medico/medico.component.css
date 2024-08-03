@@ -1,7 +1,5 @@
-.agenda{
-    background-color: white;
-}
-
-.fa-edit{
-    cursor: pointer;
+.horario-agendado{
+    color: blue;
+    font-weight: 800;
+    background-color: #ccd9e5;
 }

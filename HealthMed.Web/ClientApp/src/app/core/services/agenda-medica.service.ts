@@ -31,4 +31,19 @@ export class AgendaMedicaService {
     );
   }
 
+  deletePorData(dataAgenda: any): Observable<any> {
+    let partes = dataAgenda.split('/');
+    let dataFormatada = `${partes[2]}-${partes[1]}-${partes[0]}`; // retorna o formato DD/MM/AAAA para AAAA-MM-DD
+
+    return this.http.delete(`v1/AgendaMedica/DeletePorData/${dataFormatada}`).pipe(
+      map((res: any) => { return res; })
+    );
+  }
+
+  deleteAgenda(idAgenda: any): Observable<any> {
+    return this.http.delete(`v1/AgendaMedica/Delete/${idAgenda}`).pipe(
+      map((res: any) => { return res; })
+    );
+  }
+
 }

@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HealthMed.Domain\HealthMed.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

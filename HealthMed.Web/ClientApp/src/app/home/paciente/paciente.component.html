@@ -25,16 +25,13 @@
 
     <div class="col pt-4">
       <button class="btn btn-warning me-2" (click)="limpar()"><i class="fa fa-sign-in"></i> Limpar</button>
-      <button [disabled]="agendarConsultaForm.invalid" class="btn btn-success" (click)="modalCadastrar()"><i class="fa fa-sign-in"></i>Agendar Consulta</button>
+      <button [disabled]="agendarConsultaForm.invalid" class="btn btn-success" (click)="modalCadastrar()"><i class="fa fa-sign-in"></i> Agendar Consulta</button>
     </div>
 
   </div>
 
-  
   <div *ngIf="idMedico.valid">
-
     <div>Selecione um horário disponível</div>
-
     <div class="row mb-2" *ngFor="let agenda of agendaDoMedico.agenda">
 
       <div class="col-2 align-content-center">
@@ -46,10 +43,10 @@
 
       <div class="col">
         <ul class="list-group list-group-horizontal position-relative overflow-auto w-75">
-          <li *ngFor="let hora of agenda.horarios" class="btn list-group-item" 
+          <li *ngFor="let hora of agenda.horarios" class="btn btn-light list-group-item" 
           [class.selecionado]="isHorarioSelecionado(hora.idAgenda, hora.id)"
           [ngClass]="hora.agendado? 'indisponivel':''"
-          (click)="selecionarHorario(hora.idAgenda, hora.id, hora.agendado)">{{hora.horario}}</li>
+          (click)="selecionarHorario(hora.idAgenda, hora.id, hora.agendado)" data-toggle="tooltip" title="Selecionar Horário">{{hora.horario}}</li>
         </ul>
       </div>
     </div>
@@ -66,20 +63,20 @@
 <table class="table" *ngIf="agendaDoPaciente.length > 0">
   <thead>
     <tr>
-      <th class="col-3">Data</th>
-      <th class="col-1">Hora</th>
-      <th class="col-3">Médico</th>
-      <th class="col-3">Especialidade</th>
+      <th class="col text-center">Data</th>
+      <th class="col text-center">Hora</th>
+      <th class="col-3 text-center">Médico</th>
+      <th class="col text-center">Especialidade</th>
       <th class="col-2 text-center">Cancelar Consulta</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let agenda of agendaDoPaciente">
-      <td>{{ agenda.dataConsulta | date : 'dd/MM/yyyy'}}</td>
-      <td>{{agenda.horarioConsulta}}</td>
-      <td>{{agenda.nomeMedico}}</td>
-      <td>{{agenda.especialidadeMedica}}</td>
-      <td class="text-center"><button  (click)="modalCancelar(agenda.idAgendaMedica)" class="btn fa fa-close text-danger cancelamento"></button></td>
+      <td class="text-center">{{ agenda.dataConsulta | date : 'dd/MM/yyyy'}}</td>
+      <td class="text-center">{{agenda.horarioConsulta}}</td>
+      <td class="text-center">{{agenda.nomeMedico}}</td>
+      <td class="text-center">{{agenda.especialidadeMedica}}</td>
+      <td class="text-center"><button  (click)="modalCancelar(agenda.idAgendaMedica)" class="btn fa fa-close text-danger btn-remove"></button></td>
     </tr>
   </tbody>
 </table>

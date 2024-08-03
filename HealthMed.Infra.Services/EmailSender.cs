@@ -43,7 +43,7 @@ namespace HealthMed.Infra.Services
                 string? smtpPassword = _config.GetSection("SmtpPassword").Value;
 
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("Health Med", "agendamento@healthmed.com"));
+                message.From.Add(new MailboxAddress("Health&Med", "agendamento@healthmed.com"));
                 message.To.Add(new MailboxAddress("", email));
                 message.Subject = subject;
                 message.Body = new TextPart("html") { Text = messageBody };

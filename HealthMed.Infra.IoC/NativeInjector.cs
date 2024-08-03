@@ -65,6 +65,8 @@ namespace HealthMed.Infra.IoC
             services.AddScoped<IRequestHandler<UsuarioUpdateCommand, Unit>, UsuarioCommandHandler>();
             services.AddScoped<IRequestHandler<UsuarioDeleteCommand, Unit>, UsuarioCommandHandler>();
             services.AddScoped<IRequestHandler<AgendaMedicaCreateCommand, Unit>, AgendaMedicaCommandHandler>();
+            services.AddScoped<IRequestHandler<AgendaMedicaDeleteCommand, Unit>, AgendaMedicaCommandHandler>();
+            services.AddScoped<IRequestHandler<AgendaMedicaDeletePorDataCommand, Unit>, AgendaMedicaCommandHandler>();
             services.AddScoped<IRequestHandler<AgendaPacienteCreateCommand, Unit>, AgendaPacienteCommandHandler>();
             services.AddScoped<IRequestHandler<AgendaPacienteDeleteCommand, Unit>, AgendaPacienteCommandHandler>();
 
