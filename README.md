@@ -26,6 +26,7 @@ Health&Med é um sistema para registro de agenda médica e cadastro de consultas
 ## Cadastro de agenda médica
 * Para cadastar agenda, o médico seleciona a data desejada e a lista de horários disponíveis.
 * Ao salvar, a agenda é imediatamente atualizada na parte inferior da tela do médico.
+* O botão de um horário fica com texto azul indicando agendamento cadastrado por algum paciente.
   
 <a href="#">![Tela cadastrar agenda](HealthMed.Web/ClientApp/src/assets/img/cadastrar_agenda.png "Tela cadastrar agenda")</a>
 <a href="#">![Json cadastrar agenda](HealthMed.Web/ClientApp/src/assets/img/json_criar_agenda.png "Json cadastrar agenda")</a>
@@ -41,6 +42,12 @@ Health&Med é um sistema para registro de agenda médica e cadastro de consultas
 
 -----
 
+## Notificação de consulta agendada
+* Quando um paciente agenda uma consulta, o médico recebe por e-mail a notificação da consulta marcada
+  
+<a href="#">![Notificação](HealthMed.Web/ClientApp/src/assets/img/notificacao.png "Notificação")</a>
+
+-----
 
 # Tecnologias utilizadas
 * .NET 8
