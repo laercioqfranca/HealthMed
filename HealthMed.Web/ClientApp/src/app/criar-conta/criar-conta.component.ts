@@ -19,9 +19,10 @@ export class CriarContaComponent implements OnInit {
   especialidadeList: any = [];
   perfilList: any = [];
 
+  tipoPerfil = new FormControl(1, Validators.required);
+
   get idPerfil() { return this.criarContaForm.get('idPerfil') };
   get idEspecialidade() { return this.criarContaForm.get('idEspecialidade') };
-  get tipoPerfil() { return this.criarContaForm.get('tipoPerfil') };
   get crm() { return this.criarContaForm.get('crm') };
   get nome() { return this.criarContaForm.get('nome') };
   get cpf() { return this.criarContaForm.get('cpf') };
@@ -39,14 +40,14 @@ export class CriarContaComponent implements OnInit {
 
   ngOnInit() {
     this.iniciarForm();
-    this.carregarComboEspecialidade();
-    this.carregarPerfis();
   }
 
   iniciarForm() {
+
+    this.tipoPerfil?.setValue(EnumTipoPerfil.Paciente);
+
     this.criarContaForm = this.fb.group({
       idPerfil: [null],
-      tipoPerfil: [null, Validators.required],
       idEspecialidade: [null],
       crm: [null],
       nome: [null, Validators.required],
@@ -54,6 +55,9 @@ export class CriarContaComponent implements OnInit {
       email: [null, [Validators.required, Validators.email]],
       senha: [null, [Validators.required, Validators.minLength(8)]]
     });
+
+    this.carregarComboEspecialidade();
+    this.carregarPerfis();
   }
 
   carregarComboEspecialidade(){
@@ -73,6 +77,7 @@ export class CriarContaComponent implements OnInit {
       next: res => {
         if(res.success){
           this.perfilList = res.data;
+          this.changeTipoPerfil();
         }
       }, error: e => {
         this.notificationService.showError("Ocorreu algum erro ao carregar os Perfis!", "Ops...");
@@ -81,11 +86,9 @@ export class CriarContaComponent implements OnInit {
   }
 
   onSubmit() {
-
-    let model = this.criarContaForm?.getRawValue();
-
     if (this.criarContaForm.valid) {
-      this.usuarioService.create(this.criarContaForm?.value).subscribe({
+      let model = this.criarContaForm?.getRawValue();
+      this.usuarioService.create(model).subscribe({
         next: (res: any) => {
           if (res?.success) {
             this.notificationService.showSuccess('Conta criada com sucesso!', '');
@@ -102,17 +105,15 @@ export class CriarContaComponent implements OnInit {
   }
 
   changeTipoPerfil() {
-    const tipoPerfil = this.tipoPerfil?.value;
-    this.tipoPerfil?.setValue(tipoPerfil);
-
     if (this.tipoPerfil?.value == EnumTipoPerfil.Medico) {
       const idPerfil = this.perfilList.filter((p:any) => p.idTipoPerfil == EnumTipoPerfil.Medico)
       this.idPerfil?.setValue(idPerfil[0].id);
+    } 
 
-    } else {
-      const idPerfil = this.perfilList.filter((p:any) => p.idTipoPerfil == EnumTipoPerfil.Paciente)
+    if (this.tipoPerfil?.value == EnumTipoPerfil.Paciente) {
+      const idPerfil = this.perfilList.filter((p:any) => p.idTipoPerfil == EnumTipoPerfil.Medico)
       this.idPerfil?.setValue(idPerfil[0].id);
-    }
+    } 
   }
 
   cancelar() {
