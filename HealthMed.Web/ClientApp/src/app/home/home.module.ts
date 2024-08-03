@@ -13,14 +13,17 @@ import { HomeComponent } from './home.component';
     SharedModule,
     CommonModule,
     RouterModule.forChild([
-        { path: '', component: HomeComponent},
+        { path: '', component: HomeComponent,
+          pathMatch:'full',
+          canActivate: [AuthGuard]
+        },
         { path: 'paciente', component: PacienteComponent,
-          // pathMatch:'full',
-          // canActivate: [AuthGuard]
+          pathMatch:'full',
+          canActivate: [AuthGuard]
         },
         { path: 'medico', component: MedicoComponent,
           pathMatch:'full',
-          // canActivate: [AuthGuard]
+          canActivate: [AuthGuard]
         },
       ]),
   ],
