@@ -55,6 +55,14 @@ Health&Med é um sistema para registro de agenda médica e cadastro de consultas
 ## Modelagem do banco de dados
 <a href="#">![Modelagem](HealthMed.Web/ClientApp/src/assets/img/modelagem.png "Modelagem")</a>
 
+-----
+## Executar o projeto
+* Para executar o projeto, clique com o botão direito no projeto web "HealthMed.Web", selecione "Set as Startup Project" e no botão "executar" na parte superior central, selecione "IIS Express" e clique em executar para carregar a página do Swagger.
+* Para executar o Front-End(Angular) utilizando o Visual Studio Code:
+    *  Clique em "Open Folder..." e selecione a pasta "HealthMed\HealthMed.Web\ClientApp".
+    *  Em seguida no terminal do Visual Studio Code, execute o comando "npm install" para baixar os pacotes.
+    *  Por fim "ng serve -o" para executar a aplicação e abrir a página de login.
+
 # Tecnologias utilizadas
 * .NET 8
 * EntityFrameworkCore
