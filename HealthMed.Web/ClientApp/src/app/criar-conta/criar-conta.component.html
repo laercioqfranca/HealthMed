@@ -12,9 +12,9 @@
         <label class="label" id="tipo-perfil">Selecione o tipo de usuário<small class="text-danger" *ngIf="tipoPerfil?.invalid">&nbsp;*</small> </label>
         <div>
           <label for="medico" class="label">Médico&nbsp;</label>
-          <input id="medico" type="radio" [value]="enumTipoPerfil.Medico" formControlName="tipoPerfil" (change)="changeTipoPerfil()"/>
+          <input id="medico" type="radio" [value]="enumTipoPerfil.Medico" [formControl]="tipoPerfil" (change)="changeTipoPerfil()"/>
           <label for="paciente" class="label">Paciente&nbsp;</label>
-          <input id="paciente" type="radio" [value]="enumTipoPerfil.Paciente" formControlName="tipoPerfil" (change)="changeTipoPerfil()"/>
+          <input id="paciente" type="radio" [value]="enumTipoPerfil.Paciente" [formControl]="tipoPerfil" (change)="changeTipoPerfil()"/>
         </div>
       </div>
 
