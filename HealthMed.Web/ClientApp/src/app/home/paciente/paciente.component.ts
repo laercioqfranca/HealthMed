@@ -41,8 +41,7 @@ export class PacienteComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService
   ) {
-    const usuario = this.authService.currentUserValue
-    this.idUsuario = usuario?.id;
+    this.authService.currentUser.subscribe((res:any) => this.idUsuario = res.id)
   }
 
   ngOnInit() {
@@ -175,6 +174,7 @@ export class PacienteComponent implements OnInit {
       Swal.close();
     })
   }
+  
   modalCadastrar(){
     Swal.fire({
       html: `

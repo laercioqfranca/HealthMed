@@ -4,6 +4,7 @@ using HealthMed.Application.Interfaces.Medico;
 using HealthMed.Application.ViewModels.Medico;
 using HealthMed.Core.Interfaces;
 using HealthMed.Domain.Commands.Medico;
+using HealthMed.Domain.Commands.Paciente;
 using HealthMed.Domain.Interfaces.Infra.Data.Repositories.Medico;
 using Microsoft.AspNetCore.Http;
 
@@ -59,6 +60,13 @@ namespace HealthMed.Application.AppServices.Medico
         public async Task Create(AgendaMedicaDTO agendaMedicaDTO)
         {
             var command = _mapper.Map<AgendaMedicaCreateCommand>(agendaMedicaDTO);
+            command.UsuarioRequerenteId = new Guid(_httpContextAccessor.HttpContext?.User.Identity.Name);
+            await _bus.SendCommand(command);
+        }
+
+        public async Task Delete(DateTime dataAgenda)
+        {
+            var command = new AgendaMedicaDeleteCommand(dataAgenda);
             command.UsuarioRequerenteId = new Guid(_httpContextAccessor.HttpContext?.User.Identity.Name);
             await _bus.SendCommand(command);
         }

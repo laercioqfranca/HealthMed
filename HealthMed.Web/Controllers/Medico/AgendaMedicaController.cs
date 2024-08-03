@@ -85,6 +85,30 @@ namespace HealthMed.Web.Controllers.Medico
             }
         }
 
+        [Route("Delete/{dataAgenda}")]
+        [HttpDelete]
+        [Authorize]
+        public async Task<IActionResult> Delete(DateTime dataAgenda)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    NotifyModelStateErrors();
+                    return Response();
+                }
+
+                await _appService.Delete(dataAgenda);
+
+                return Response();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.InnerException.Message);
+                return HandleException(ex);
+            }
+        }
+
         #endregion
 
     }

@@ -5,6 +5,7 @@ import { HorarioService } from 'src/app/core/services/horario.service';
 import { NotificationService } from 'src/app/core/services/root/notification.service';
 import { AgendaMedicaFiltroModel } from 'src/app/models/agendaMedicaFiltroModel';
 import { AuthService } from 'src/app/services/root/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-medico',
@@ -32,8 +33,7 @@ export class MedicoComponent implements OnInit {
     private authService: AuthService
 
     ) { 
-      const usuario = this.authService.currentUserValue;
-      this.idMedico = usuario?.id;
+      this.authService.currentUser.subscribe((res:any) => this.idMedico = res.id)
     }  
   
   ngOnInit() {
@@ -129,87 +129,54 @@ export class MedicoComponent implements OnInit {
     });
   }
 
-  // obterEventoPorId(id:any){
-  //   // this.eventoService.getById(id)
-  //   //   .subscribe({
-  //   //     next: (res) => {
-  //   //       this.evento = res.data;
-  //   //       this.carregarDados(); // carrega os dados no formulário
-  //   //     },
-  //   //     error: (e) => {
-  //   //       this.notificationService.showError("Ocorreu algum erro ao carregar o evento!", "Ops...");
-  //   //     },
-  //   //   });
-  // }
+  excluirAgenda(dataAgenda:any){
+    this.agendaService.delete(dataAgenda).subscribe({
+      next: res => {
+        this.modalSucesso();
+        this.listarAgendaPorMedico();
+      },error: e => {
+        this.notificationService.showError("Ocorreu algum erro ao cancelar a consulta!", "Ops...");
+      }
+    })
 
-  // listarEventos(){
-  //   // this.eventoService.getAll()
-  //   //   .subscribe({
-  //   //     next: (res) => {
-  //   //       this.listaEventos = res.data;
+  }
 
-  //   //       this.listaEventos.forEach(element => {
-  //   //         element.data = new Date(element.data).toLocaleDateString();
-  //   //       });
-          
-  //   //     },
-  //   //     error: (e) => {
-  //   //       this.notificationService.showError("Ocorreu algum erro ao carregar os eventos!", "Ops...");
-  //   //     },
-  //   //   });
-  // }
+  modalExcluir(dataAgenda:any){
+    Swal.fire({
+      html: `
+        <br>  
+        <h3 class='fw-bold'>Atenção!</h3>
+        <br>
+        <p class="mt-3 fw-bold">Deseja realmente remover esta agenda?</p>
+      `,
+      showConfirmButton: true,
+      confirmButtonText: "SIM",
+      confirmButtonColor: '#049D01',
+      showDenyButton: true,
+      denyButtonText: 'NÃO'
+    }).then(e => {
+      if(e.isConfirmed){
+        this.excluirAgenda(dataAgenda);
+      }
+      Swal.close();
+    })
+  }
 
-  // editar(id:any){
-  //   this.obterEventoPorId(id);
-  // } 
-
-  // carregarDados(){
-  //   setTimeout(() => {
-  //     this.agendaForm.get('descricao')?.setValue(this.evento.descricao);
-  //     this.agendaForm.get('data')?.setValue(new Date(this.evento.data));
-  //   }, 1000);
-  // }
-
-  // deletar(id:any){
-  //   // if(id != null){
-  //   //   this.eventoService.delete(id).subscribe(
-  //   //     {
-  //   //       next:(res) => {
-  //   //         if (res?.success) {
-  //   //             this.notificationService.showSuccess('Evento excluído com sucesso!', '');
-  //   //             this.listarEventos();
-  //   //         }
-  //   //       },
-  //   //       error: (e) => {
-  //   //         this.notificationService.showError("Ocorreu algum erro ao deletar o evento!", "Ops...");
-  //   //       },
-  //   //     }
-
-  //   //   );
-  //   // }
-  // }
-
-  
-
-  // autualizarEvento(evento:any){
-  //   // const viewModel = {
-  //   //   id: this.evento.id,
-  //   //   descricao: evento.descricao,
-  //   //   data: evento.data
-  //   // }
-
-  //   // this.eventoService.update(viewModel).subscribe({
-  //   //   next:(res) => {
-  //   //     if (res?.success) {
-  //   //       this.notificationService.showSuccess('Evento atualizado com sucesso!', '');
-  //   //       this.listarEventos();
-  //   //     }
-  //   //   },
-  //   //   error: (e) => {
-  //   //     this.notificationService.showError("Ocorreu algum erro ao atualizar o evento!", "Ops...");
-  //   //   },
-  //   // });
-  // }
+  modalSucesso(){
+    Swal.fire({
+      html: `
+        <br>  
+        <h3 class='fw-bold'>Sucesso!</h3>
+        <br>
+        <p class="mt-3 fw-bold">Agenda removida com sucesso!</p>
+      `,
+      showConfirmButton: true,
+      confirmButtonText: "FECHAR",
+      confirmButtonColor: '#049D01',
+    }).then(e => {
+      Swal.close();
+    })
+  }
 
   limpar(){
     this.agendaForm.reset();
