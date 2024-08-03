@@ -52,6 +52,9 @@ Health&Med é um sistema para registro de agenda médica e cadastro de consultas
 <a href="#">![Swagger](HealthMed.Web/ClientApp/src/assets/img/swagger.png "Swagger")</a>
 
 
+## Modelagem do banco de dados
+<a href="#">![Modelagem](HealthMed.Web/ClientApp/src/assets/img/modelagem.png "Modelagem")</a>
+
 # Tecnologias utilizadas
 * .NET 8
 * EntityFrameworkCore
