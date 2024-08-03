@@ -77,17 +77,39 @@ namespace HealthMed.Domain.Models.Autenticacao
 
         private static string CreateRandomPassword(int length = 8)
         {
-            // Create a string of characters, numbers, special characters that allowed in the password  
-            string validChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             Random random = new Random();
-
-            // Select one random character at a time from the string  
-            // and create an array of chars  
             char[] chars = new char[length];
+
+            string upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            string lowerCase = "abcdefghijklmnopqrstuvwxyz";
+            string number = "0123456789";
+            string symbols = "!@#$%^&*()_+";
+
+            string[] charactersGroup = { upperCase, lowerCase, number, symbols };
+
+            // Seleciona pelo menos um caractere de cada grupo
+            for (int i = 0; i < charactersGroup.Length; i++)
+            {
+                string selectedCharacter = charactersGroup[i];
+                chars[i] = selectedCharacter[random.Next(0, selectedCharacter.Length)];
+            }
+
+            // Preenche o restante da senha com caracteres aleatórios
+            for (int i = charactersGroup.Length; i < length; i++)
+            {
+                string selectedCharacter = charactersGroup[random.Next(0, charactersGroup.Length)];
+                chars[i] = selectedCharacter[random.Next(0, selectedCharacter.Length)];
+            }
+
+            // Embaralha os caracteres para garantir aleatoriedade
             for (int i = 0; i < length; i++)
             {
-                chars[i] = validChars[random.Next(0, validChars.Length)];
+                int randIndex = random.Next(i, length);
+                char temp = chars[i];
+                chars[i] = chars[randIndex];
+                chars[randIndex] = temp;
             }
+
             return new string(chars);
         }
     }

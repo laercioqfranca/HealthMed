@@ -57,7 +57,7 @@ namespace HealthMed.Test.UnitTest
             usuario.DefinirCriptografia(null, null);
 
             // Assert
-            Assert.True(usuario.ValidarSenhaCorreta(usuario.Senha, usuario.Salt, "IntranetCicc@2024"));
+            Assert.True(usuario.ValidarSenhaCorreta(usuario.Senha, usuario.Salt, "Agendamento@2024"));
         }
     }
 }
