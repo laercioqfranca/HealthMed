@@ -67,7 +67,7 @@ export class CriarContaComponent implements OnInit {
           this.especialidadeList = res.data;
         }
       }, error: e => {
-        this.notificationService.showError("Ocorreu algum erro ao carregar as especialidades!", "Ops...");
+        // this.notificationService.showError("Ocorreu algum erro ao carregar as especialidades!", "Ops...");
       }
     });
   }
@@ -80,7 +80,7 @@ export class CriarContaComponent implements OnInit {
           this.changeTipoPerfil();
         }
       }, error: e => {
-        this.notificationService.showError("Ocorreu algum erro ao carregar os Perfis!", "Ops...");
+        // this.notificationService.showError("Ocorreu algum erro ao carregar os Perfis!", "Ops...");
       }
     });
   }
@@ -98,7 +98,7 @@ export class CriarContaComponent implements OnInit {
           }
         },
         error: (e) => {
-          this.notificationService.showError("Ocorreu algum erro ao criar a conta!", "Ops...");
+          // this.notificationService.showError("Ocorreu algum erro ao criar a conta!", "Ops...");
         },
       });
     }
