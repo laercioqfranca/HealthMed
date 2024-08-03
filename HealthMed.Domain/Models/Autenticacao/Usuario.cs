@@ -40,7 +40,7 @@ namespace HealthMed.Domain.Models.Autenticacao
             CRM = cRM;
             IdEspecialidade = idEspecialidade;
             DataInclusao = DateTime.Now;
-            setCriptografia(senha, null);
+            DefinirCriptografia(senha, null);
         }
 
         public void setExcluido(bool excluido)
@@ -48,14 +48,14 @@ namespace HealthMed.Domain.Models.Autenticacao
             Excluido = excluido;
         }
 
-        public string setGerarSenhaAleatoria()
+        public string GerarSenhaAleatoria()
         {
             string senhagerada = CreateRandomPassword();
-            setCriptografia(senhagerada, "");
+            DefinirCriptografia(senhagerada, "");
             return senhagerada;
         }
 
-        public void setCriptografia(string senha, string salt)
+        public void DefinirCriptografia(string senha, string salt)
         {
             Salt = string.IsNullOrEmpty(salt) ? Cryptography.GetSalt() : salt;
             Senha = Cryptography.GetHash(Salt, string.IsNullOrEmpty(senha) ? "Agendamento@2024" : senha);
@@ -67,6 +67,12 @@ namespace HealthMed.Domain.Models.Autenticacao
             Email = email;
             IdPerfil = idPerfil;
             Perfil = null;
+        }
+
+        public bool ValidarSenhaCorreta(string senhaDoBanco, string saltDoBanco, string senhaInformada)
+        {
+            string resultado = Cryptography.GetHash(saltDoBanco, senhaInformada);
+            return resultado == senhaDoBanco;
         }
 
         private static string CreateRandomPassword(int length = 8)
