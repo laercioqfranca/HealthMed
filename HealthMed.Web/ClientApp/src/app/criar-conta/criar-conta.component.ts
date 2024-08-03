@@ -111,7 +111,7 @@ export class CriarContaComponent implements OnInit {
     } 
 
     if (this.tipoPerfil?.value == EnumTipoPerfil.Paciente) {
-      const idPerfil = this.perfilList.filter((p:any) => p.idTipoPerfil == EnumTipoPerfil.Medico)
+      const idPerfil = this.perfilList.filter((p:any) => p.idTipoPerfil == EnumTipoPerfil.Paciente)
       this.idPerfil?.setValue(idPerfil[0].id);
     } 
   }
