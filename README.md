@@ -1,4 +1,4 @@
-#### [Postech - FIAP - Arquitetura de Sistemas com .NET e Azure]
+#### [Hackathon - FIAP - Arquitetura de Sistemas com .NET e Azure]
 # Health&Med
 
 ## Sobre
