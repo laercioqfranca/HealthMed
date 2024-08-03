@@ -12,8 +12,8 @@ namespace HealthMed.Domain.Validations.Paciente
     {
         public AgendaMedicaDeleteCommandValidation()
         {
-            RuleFor(x => x.DataAgenda)
-                .NotNull().WithMessage("O DataAgenda é obrigatória!");
+            RuleFor(x => x.IdAgenda)
+                .NotNull().WithMessage("O IdAgenda é obrigatório!");
         }
     }
 }

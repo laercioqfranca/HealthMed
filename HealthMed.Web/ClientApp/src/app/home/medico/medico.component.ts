@@ -17,9 +17,7 @@ export class MedicoComponent implements OnInit {
   agendaForm!: FormGroup;
   idMedico!:any;
   horarioList!:any;
-
   agendaMedica: any = [];
-
   mostrarCriarEvento: boolean = true;
 
   get content(): FormArray { return this.agendaForm.get('content') as FormArray; }
@@ -130,7 +128,7 @@ export class MedicoComponent implements OnInit {
   }
 
   excluirAgenda(dataAgenda:any){
-    this.agendaService.delete(dataAgenda).subscribe({
+    this.agendaService.deletePorData(dataAgenda).subscribe({
       next: res => {
         this.modalSucesso();
         this.listarAgendaPorMedico();
@@ -139,6 +137,17 @@ export class MedicoComponent implements OnInit {
       }
     })
 
+  }
+
+  excluirHorario(idAgenda:any){
+    this.agendaService.deleteAgenda(idAgenda).subscribe({
+      next: res => {
+        this.modalSucesso();
+        this.listarAgendaPorMedico();
+      },error: e => {
+        this.notificationService.showError("Ocorreu algum erro ao cancelar a consulta!", "Ops...");
+      }
+    })
   }
 
   modalExcluir(dataAgenda:any){
@@ -157,6 +166,27 @@ export class MedicoComponent implements OnInit {
     }).then(e => {
       if(e.isConfirmed){
         this.excluirAgenda(dataAgenda);
+      }
+      Swal.close();
+    })
+  }
+
+  modalExcluirHorario(idAgenda:any){
+    Swal.fire({
+      html: `
+        <br>  
+        <h3 class='fw-bold'>Atenção!</h3>
+        <br>
+        <p class="mt-3 fw-bold">Deseja realmente remover este horário?</p>
+      `,
+      showConfirmButton: true,
+      confirmButtonText: "SIM",
+      confirmButtonColor: '#049D01',
+      showDenyButton: true,
+      denyButtonText: 'NÃO'
+    }).then(e => {
+      if(e.isConfirmed){
+        this.excluirHorario(idAgenda);
       }
       Swal.close();
     })

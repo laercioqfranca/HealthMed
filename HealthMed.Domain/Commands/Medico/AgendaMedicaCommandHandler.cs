@@ -9,10 +9,12 @@ using HealthMed.Domain.Models.Medico;
 using HealthMed.Domain.Commands.Paciente;
 using HealthMed.Domain.Models.Paciente;
 using HealthMed.Domain.Interfaces.Infra.Data.Repositories.Paciente;
+using MassTransit.Middleware;
 
 namespace HealthMed.Domain.Commands.Medico
 {
-    public class AgendaMedicaCommandHandler : CommandHandler, IRequestHandler<AgendaMedicaCreateCommand>, IRequestHandler<AgendaMedicaDeleteCommand>
+    public class AgendaMedicaCommandHandler : CommandHandler, IRequestHandler<AgendaMedicaCreateCommand>, 
+        IRequestHandler<AgendaMedicaDeleteCommand>, IRequestHandler<AgendaMedicaDeletePorDataCommand>
     {
 
         private readonly IMediatorHandler _bus;
@@ -64,7 +66,7 @@ namespace HealthMed.Domain.Commands.Medico
             return Unit.Value;
         }
 
-        public async Task<Unit> Handle(AgendaMedicaDeleteCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(AgendaMedicaDeletePorDataCommand request, CancellationToken cancellationToken)
         {
             LogHistorico log = new LogHistorico();
             if (!request.IsValid())
@@ -89,6 +91,56 @@ namespace HealthMed.Domain.Commands.Medico
                         }
                         _iAgendaMedicaRepository.Remove(novaAgenda);
                     }
+                }
+                else
+                {
+                    await _bus.RaiseEvent(new DomainNotification("Agendamento", "Agendamento não encontrado!."));
+                    return Unit.Value;
+                }
+            }
+
+            var notificationsString = _notifications.HasNotifications() ? string.Join(";", _notifications.GetNotifications().Select(x => x.Value)) : null;
+
+            if (notificationsString == null)
+            {
+                log = new LogHistorico(request.UsuarioRequerenteId, Guid.NewGuid(), EnumTipoLog.DELETE, "AgendaMedica", $"Agenda Médica deleted");
+            }
+            else
+            {
+                log = log.SaveLogHistorico(EnumTipoLog.DELETE, "AgendaMedica", "Error", notificationsString);
+            }
+
+            if (_notifications.HasNotifications()) await Commit(true);
+            if (!_notifications.HasNotifications()) await Commit();
+
+            return Unit.Value;
+        }
+
+        public async Task<Unit> Handle(AgendaMedicaDeleteCommand request, CancellationToken cancellationToken)
+        {
+            LogHistorico log = new LogHistorico();
+            if (!request.IsValid())
+                NotifyValidationErrors(request);
+            else
+            {
+                var queryAgenda = await _iAgendaMedicaRepository.GetById(request.IdAgenda, null);
+
+                if (queryAgenda != null)
+                {
+
+                    AgendaMedica agenda = new AgendaMedica(queryAgenda.Data, queryAgenda.IdHorario, queryAgenda.IdMedico);
+                    agenda.Id = queryAgenda.Id;
+
+                    AgendaPaciente queryPaciente = await _iAgendaPacienteRepository.GetById(queryAgenda.Id);
+
+                    if (queryPaciente != null)
+                    {
+                        AgendaPaciente agendaPaciente = new AgendaPaciente(agenda.Id, queryPaciente.IdPaciente);
+                        _iAgendaPacienteRepository.Remove(agendaPaciente);
+                    }
+
+                    _iAgendaMedicaRepository.Remove(agenda);
+
                 }
                 else
                 {

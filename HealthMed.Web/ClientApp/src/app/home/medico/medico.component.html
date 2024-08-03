@@ -44,7 +44,9 @@
 
   <div class="col">
     <ul class="list-group list-group-horizontal position-relative overflow-auto w-75">
-      <li *ngFor="let hora of item.horarios" class="list-group-item" [ngClass]="hora.agendado? 'horario-agendado':''">{{hora.horario}}</li>
+      <li *ngFor="let hora of item.horarios" class="btn list-group-item" 
+      (click)="modalExcluirHorario(hora.idAgenda)"
+      [ngClass]="hora.agendado? 'horario-agendado':''">{{hora.horario}}</li>
     </ul>
   </div>
 </div>

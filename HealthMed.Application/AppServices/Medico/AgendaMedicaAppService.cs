@@ -64,9 +64,15 @@ namespace HealthMed.Application.AppServices.Medico
             await _bus.SendCommand(command);
         }
 
-        public async Task Delete(DateTime dataAgenda)
+        public async Task DeletePorData(DateTime dataAgenda)
         {
-            var command = new AgendaMedicaDeleteCommand(dataAgenda);
+            var command = new AgendaMedicaDeletePorDataCommand(dataAgenda);
+            command.UsuarioRequerenteId = new Guid(_httpContextAccessor.HttpContext?.User.Identity.Name);
+            await _bus.SendCommand(command);
+        }
+        public async Task Delete(Guid iAgenda)
+        {
+            var command = new AgendaMedicaDeleteCommand(iAgenda);
             command.UsuarioRequerenteId = new Guid(_httpContextAccessor.HttpContext?.User.Identity.Name);
             await _bus.SendCommand(command);
         }

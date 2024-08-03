@@ -85,7 +85,7 @@ namespace HealthMed.Web.Controllers.Medico
             }
         }
 
-        [Route("Delete/{dataAgenda}")]
+        [Route("DeletePorData/{dataAgenda}")]
         [HttpDelete]
         [Authorize]
         public async Task<IActionResult> Delete(DateTime dataAgenda)
@@ -98,7 +98,31 @@ namespace HealthMed.Web.Controllers.Medico
                     return Response();
                 }
 
-                await _appService.Delete(dataAgenda);
+                await _appService.DeletePorData(dataAgenda);
+
+                return Response();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.InnerException.Message);
+                return HandleException(ex);
+            }
+        }
+
+        [Route("Delete/{idAgenda}")]
+        [HttpDelete]
+        [Authorize]
+        public async Task<IActionResult> Delete(Guid idAgenda)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    NotifyModelStateErrors();
+                    return Response();
+                }
+
+                await _appService.Delete(idAgenda);
 
                 return Response();
             }

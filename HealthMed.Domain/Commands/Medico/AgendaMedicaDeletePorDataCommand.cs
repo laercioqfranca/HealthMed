@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace HealthMed.Domain.Commands.Paciente
 {
-    public class AgendaMedicaDeleteCommand : Command
+    public class AgendaMedicaDeletePorDataCommand : Command
     {
-        public Guid IdAgenda { get; protected set; }
+        public DateTime DataAgenda { get; protected set; }
 
-        public AgendaMedicaDeleteCommand(Guid idAgenda)
+        public AgendaMedicaDeletePorDataCommand(DateTime dataAgenda)
         {
-            IdAgenda = idAgenda;
+            DataAgenda = dataAgenda;
         }
 
         public override bool IsValid()
         {
-            ValidationResult = new AgendaMedicaDeleteCommandValidation().Validate(this);
+            ValidationResult = new AgendaMedicaDeletePorDataCommandValidation().Validate(this);
             return ValidationResult.IsValid;
         }
 
